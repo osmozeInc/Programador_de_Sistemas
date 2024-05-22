@@ -18,8 +18,8 @@ while True:
         if saldo >= saque and saque > 0: 
             print(f"sacando: R$ {saque:.2f} \nExtrato atual: R$ {(saldo - saque):.2f}")
             extrato.append(f"sacado o valor de R$ {saque}")
+            saldo = saldo - saque
         else: print(f"Saldo Insuficiente \nSaldo: R$ {saldo:.2f}")
-        saldo = saldo - saque
         escolha = input("\n\no que deseja fazer: \n1 - Sacar \n2 - Depositar \n3 - Visualizar Extrato \n--> ")
 
 
