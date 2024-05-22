@@ -27,15 +27,15 @@ while True:
         os.system('cls')
         deposito = float(input(f"Extrato: R$ {saldo:.2f} \nqual o valor do deposito?\n --> "))
         os.system('cls')
-        print(f"Depositando R$ {deposito} \nExtrato atual: R$ {deposito + saldo}")
-        extrato.append(f"depositado o valor de R$ {deposito}\n")
+        print(f"Depositando R$ {deposito:.2f} \nExtrato atual: R$ {(deposito + saldo):.2f}")
+        extrato.append(f"depositado o valor de R$ {deposito:.2f}\n")
         saldo = deposito + saldo
         escolha = input("\n\no que deseja fazer: \n1 - Sacar \n2 - Depositar \n3 - Visualizar Extrato \n--> ")
 
 
     elif int(escolha) == 3:
         os.system('cls')
-        print(f"Saldo atual: R$ {saldo}")
+        print(f"Saldo atual: R$ {saldo:.2f}")
         print(extrato)
         escolha = input("\n\no que deseja fazer: \n1 - Sacar \n2 - Depositar \n3 - Visualizar Extrato \n--> ")
 
