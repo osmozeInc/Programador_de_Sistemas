@@ -28,7 +28,7 @@ while True:
         deposito = float(input(f"Extrato: R$ {saldo:.2f} \nqual o valor do deposito?\n --> "))
         os.system('cls')
         print(f"Depositando R$ {deposito} \nExtrato atual: R$ {deposito + saldo}")
-        extrato.append(f"depositado o valor de R$ {saque}\n")
+        extrato.append(f"depositado o valor de R$ {deposito}\n")
         saldo = deposito + saldo
         escolha = input("\n\no que deseja fazer: \n1 - Sacar \n2 - Depositar \n3 - Visualizar Extrato \n--> ")
 
