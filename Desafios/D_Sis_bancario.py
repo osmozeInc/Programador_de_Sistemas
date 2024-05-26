@@ -36,7 +36,8 @@ while True:
     elif int(escolha) == 3:
         os.system('cls')
         print(f"Saldo atual: R$ {saldo:.2f}")
-        print(extrato)
+        for operação in extrato:
+            print(extrato[operação])
         escolha = input("\n\no que deseja fazer: \n1 - Sacar \n2 - Depositar \n3 - Visualizar Extrato \n--> ")
 
         
