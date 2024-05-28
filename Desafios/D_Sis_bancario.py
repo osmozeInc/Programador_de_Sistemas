@@ -79,7 +79,7 @@ while True:
         input("\nPressione Enter para continuar...")
 
     texto = f"Saldo: R$ {saldo:.2f}"
-
+os.system('cls')
 print("\nFechando Programa...\n\n")
 
 
