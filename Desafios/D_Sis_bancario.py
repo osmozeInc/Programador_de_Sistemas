@@ -55,7 +55,6 @@ def Extrato():
     input("\nPressione Enter para continuar...")
 
 
-
 texto = "        === Sistema Bancário === \n"
 print(texto)
 input("\nPressione Enter para continuar ou sair...")
