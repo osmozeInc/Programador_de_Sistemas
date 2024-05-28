@@ -19,12 +19,12 @@ def Carregando():
         sys.stdout.flush()
 
 def Retornando():
-    for tempo in ['(5)', '(4)', '(3)', '(2)', '(1)', '(0)', ]:
-        sys.stdout.write(tempo)
-        sys.stdout.flush()
+    for tempo in range(10, 0, -1):
+        tt = input(f"\nRetornando ao menu\n Pressione enter ou espere ({tempo})", end='')
         time.sleep(1)
-        sys.stdout.write('\b' * 3)
+        sys.stdout.write('\b' * 49)
         sys.stdout.flush()
+        if tt == '': break
 
 
 
@@ -61,7 +61,7 @@ def Deposito(saldo):
             print("\nValor inválido!")
     except:
         print("\nValor inválido!")
-    print("\nRetornando ao menu ", end='')
+    print("\nRetornando ao menu\n Pressione enter ou espere ", end='')
     Retornando()
     return saldo
 
