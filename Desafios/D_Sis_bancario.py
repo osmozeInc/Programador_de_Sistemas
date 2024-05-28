@@ -1,7 +1,9 @@
+import sys
 import os
+import time
 os.system('cls')
-saldo = 1500
-saldo = float(saldo)
+texto = "        === Sistema Bancário === \n"
+saldo = float(1500)
 extrato = []
 
 def Menu():
@@ -9,6 +11,12 @@ def Menu():
     print(texto)
     opcao = input("o que deseja fazer: \n1 - Sacar \n2 - Depositar \n3 - Visualizar Extrato \n--> ")
     return opcao
+
+def Carregando():
+        for ponto in ['.', '.', '.', '.']:
+            time.sleep(0.7)
+            sys.stdout.write(ponto)
+            sys.stdout.flush()
 
 
 def Saque(saldo):
@@ -55,9 +63,10 @@ def Extrato():
     input("\nPressione Enter para continuar...")
 
 
-texto = "        === Sistema Bancário === \n"
 print(texto)
-input("\nPressione Enter para continuar ou sair...")
+time.sleep(0.5)
+print("\nIniciando Sistema", end='')
+Carregando()
 
 while True:
     texto = f"Saldo: R$ {saldo:.2f}"
@@ -80,7 +89,10 @@ while True:
 
     texto = f"Saldo: R$ {saldo:.2f}"
 os.system('cls')
-print("\nFechando Programa...\n\n")
+print("Fechando Programa", end='')
+Carregando()
+print("\n\n")
+
 
 
 
