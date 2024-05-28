@@ -13,10 +13,19 @@ def Menu():
     return opcao
 
 def Carregando():
-        for ponto in ['.', '.', '.', '.']:
-            time.sleep(0.7)
-            sys.stdout.write(ponto)
-            sys.stdout.flush()
+    for ponto in ['.', '.', '.', '.']:
+        time.sleep(0.5)
+        sys.stdout.write(ponto)
+        sys.stdout.flush()
+
+def Retornando():
+    for tempo in ['(5)', '(4)', '(3)', '(2)', '(1)', '(0)', ]:
+        sys.stdout.write(tempo)
+        sys.stdout.flush()
+        time.sleep(1)
+        sys.stdout.write('\b' * 3)
+        sys.stdout.flush()
+
 
 
 def Saque(saldo):
@@ -33,7 +42,8 @@ def Saque(saldo):
             print("\nSaldo insuficiente!")
     except ValueError:
         print("\nValor inválido!")
-    input("\nPressione Enter para continuar...")
+    print("\nRetornando ao menu ", end='')
+    Retornando()
     return saldo
 
 
@@ -50,8 +60,9 @@ def Deposito(saldo):
         else: 
             print("\nValor inválido!")
     except:
-        print("\nValor inválidoo!")
-    input("\nPressione Enter para continuar...")
+        print("\nValor inválido!")
+    print("\nRetornando ao menu ", end='')
+    Retornando()
     return saldo
 
 
