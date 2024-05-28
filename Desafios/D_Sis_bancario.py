@@ -82,3 +82,48 @@ while True:
     texto = f"Saldo: R$ {saldo:.2f}"
 
 print("\nFechando Programa...\n\n")
+
+
+
+#
+#                            Explicação Detalhada
+
+#  O código importa o módulo os e usa os.system('cls') para limpar a tela no Windows.
+#  import os
+#  os.system('cls')
+
+#       Variáveis Globais:
+#  Inicializa o saldo com 1500, convertendo-o para float, e cria uma lista vazia para armazenar o extrato das operações.
+
+#       Função Menu:
+#  Limpa a tela, exibe o texto de saldo, solicita a escolha do usuário e retorna essa escolha.
+
+#       Função Saque:
+#  Limpa a tela, exibe o texto de saldo, solicita o valor do saque e tenta convertê-lo para float.
+#  Se o valor for válido e menor ou igual ao saldo, realiza o saque, atualiza o saldo e adiciona a operação ao extrato.
+#  Se o valor for inválido ou maior que o saldo, exibe uma mensagem de erro.
+#  Retorna o saldo atualizado.
+
+#       Função Deposito:
+#  Limpa a tela, exibe o texto de saldo, solicita o valor do depósito e tenta convertê-lo para float.
+#  Se o valor for válido e positivo, realiza o depósito, atualiza o saldo e adiciona a operação ao extrato.
+#  Se o valor for inválido ou negativo, exibe uma mensagem de erro.
+#  Retorna o saldo atualizado.
+
+#       Função Extrato:
+#  Limpa a tela, exibe o texto de saldo e todas as operações armazenadas no extrato.
+
+#       Loop Principal:
+#  Inicializa o texto de boas-vindas e espera o usuário pressionar Enter para continuar.
+#  Entra em um loop infinito, atualizando e exibindo o saldo após cada operação.
+#  Chama a função Menu para obter a escolha do usuário.
+#  Dependendo da escolha, chama as funções Saque, Deposito ou Extrato.
+#  Sai do loop e imprime uma mensagem de encerramento se a escolha for uma string vazia.
+#
+#       try-except: 
+#  Permite capturar e tratar erros que ocorrem durante a execução do código,
+#  prevenindo que o programa falhe inesperadamente e proporcionando uma maneira controlada de lidar com erros.
+
+#       while True: 
+#  Cria um loop infinito que continuará até que uma condição de saída (break) seja encontrada,
+#  permitindo que o programa permaneça em execução até que o usuário decida sair.
