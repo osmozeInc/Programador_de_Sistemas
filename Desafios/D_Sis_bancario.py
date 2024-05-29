@@ -107,7 +107,6 @@ print("\n\n")
 
 
 
-#
 #                            Explicação Detalhada
 
 #  O código importa o módulo os e usa os.system('cls') para limpar a tela no Windows.
