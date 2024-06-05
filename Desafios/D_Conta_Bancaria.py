@@ -19,7 +19,24 @@ class Cliente(Banco):
     def Deposito(self):
         print("Começando operação de deposito")
         time.sleep(3)
-        return 
+
+        while True:
+            os.system('cls')
+            deposito = input(f"Saldo: R$ {self.saldo:.2f} \nQuanto quer depositar? \n--> ")
+
+            try:
+                deposito = float(deposito)
+                if deposito > 0:
+                    self.saldo += deposito
+                    break
+                else:
+                    print("Deposito precisa ser maior que 0")
+                    time.sleep(3)
+            except:
+                print("\nValor invalido! \nretomando operação")
+
+        return print(f"Deposito de R$ {self.saldo:.2f} realizado com sucesso!")
+
 
     def Saque(self):
         print("Começando operação de Saque")
@@ -27,23 +44,23 @@ class Cliente(Banco):
 
         while True:
             os.system('cls')
-            saque = input(f"Saldo: R$ {self.saldo:.2f} \nQuanto quer sacar:")
+            saque = input(f"Saldo: R$ {self.saldo:.2f} \nQuanto quer sacar: \n--> ")
                 
-            if saque == float(saque):
+            try:
+                saque = float(saque)
                 if saque >= 0 and saque <= self.saldo:
-                    saldo = saldo - saque
-                    print(f"Saque de R$ {saldo} realizado com sucesso!")
+                    self.saldo -= saque
                     break
                 else:
                     print("Saldo insuficiente")
-            else: 
-                print("Valor invalido")
+            except: 
+                print("\nValor invalido! \nretomando operação")
                 time.sleep(3)
 
-        return print(f"Saque de R$ {saldo} realizado com sucesso!")
+        return print(f"Saque de R$ {self.saldo:.2f} realizado com sucesso!")
     
-
 
 os.system('cls')
 cliente = Cliente()
+cliente.Deposito()
 cliente.Saque()
