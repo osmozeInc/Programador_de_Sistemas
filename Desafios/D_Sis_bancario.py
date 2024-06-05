@@ -1,105 +1,126 @@
-import sys
 import os
 import time
 
-os.system('cls')
-texto = "        === Sistema Bancário === \n"
-saldo = float(500)
-extrato = []
+class Banco:
+    def __init__(self) -> None:
+        pass
 
-def Menu():
-    os.system('cls')
-    print(texto)
-    opcao = input("o que deseja fazer: \n1 - Sacar \n2 - Depositar \n3 - Visualizar Extrato \n--> ")
-    return opcao
+    def Saque(self):
+        pass
 
-def Carregando():
-    for ponto in ['.', '.', '.', '']:
-        time.sleep(0.6)
-        sys.stdout.write(ponto)
-        sys.stdout.flush()
+    def Deposito(self):
+        pass
 
-def Retornando():
-    for tempo in range(8, 0, -1):
-        sys.stdout.write(f"({tempo}s)")
-        sys.stdout.flush()
-        time.sleep(1)
-        sys.stdout.write('\b' * 4)
-        sys.stdout.flush()
+class Cliente(Banco):
+    def __init__(self):
+        self.usuario = "Anonimo"
+        self.CPF = "000.000.000-00"
+        self.nascimento = "00/00/0000"
+        self.saldo = 0.00
 
 
-def Saque(saldo):
-    os.system('cls')
-    print(texto)
-    valor = input("Qual o valor do saque?\n--> ")
-    try:
-        valor = float(valor)
-        if valor <= saldo and valor > 0:
-            saldo -= valor
-            extrato.append(f"Sacado: R$ {valor:.2f}")
-            print(f"\nSaque de R$ {valor:.2f} realizado com sucesso.\nSaldo atual: R$ {saldo:.2f}")
-        else:
-            print("\nSaldo insuficiente!")
-    except ValueError:
-        print("\nValor inválido!")
-    print("\nRetornando ao menu ", end='')
-    Retornando()
-    return saldo
+    def Deposito(self):
+        print("\nComeçando operação de deposito")
+        time.sleep(3)
+
+        while True:
+            os.system('cls')
+            deposito = input(f"Saldo: R$ {self.saldo:.2f} \nQuanto quer depositar? \n--> ")
+
+            if deposito == "": break
+
+            try:
+                deposito = float(deposito)
+                if deposito > 0:
+                    self.saldo += deposito
+                    break
+                else:
+                    print("Deposito precisa ser maior que 0")
+                    time.sleep(3)
+            except:
+                print("\nValor invalido! \nretomando operação")
+
+        return print(f"Deposito de R$ {deposito:.2f} realizado com sucesso!")
 
 
-def Deposito(saldo):
-    os.system('cls')
-    print(texto)
-    valor = input("Qual o valor do deposito?\n--> ")
-    try:
-        valor = float(valor)
-        if valor > 0:
-            saldo += valor
-            extrato.append(f"Depositado: R$ {valor:.2f}")
-            print(f"\nDeposito de R$ {valor:.2f} realizado com sucesso.\nSaldo atual: R$ {saldo:.2f}")
-        else: 
-            print("\nValor inválido!")
-    except:
-        print("\nValor inválido!")
-    print("\nRetornando ao menu ", end='')
-    Retornando()
-    return saldo
+    def Saque(self):
+        print("\nComeçando operação de Saque")
+        time.sleep(3)
 
+        while True:
+            os.system('cls')
+            saque = input(f"Saldo: R$ {self.saldo:.2f} \nQuanto quer sacar: \n--> ")
+                
+            if saque == "": break
 
-def Extrato():
-    os.system('cls')
-    print(texto, "\n\nExtrato:")
-    for operacao in extrato:
-        print(operacao)
-    input("\nPressione Enter para continuar...")
+            try:
+                saque = float(saque)
+                if saque >= 0 and saque <= self.saldo:
+                    self.saldo -= saque
+                    break
+                else:
+                    print("\nSaldo insuficiente")
+            except: 
+                print("\nValor invalido! \nretomando operação")
+                time.sleep(3)
 
-
-print(texto)
-time.sleep(0.5)
-print("\nIniciando Sistema", end='')
-Carregando()
-
-while True:
-    texto = f"Saldo: R$ {saldo:.2f}"
-    escolha = Menu()
-
-    if escolha == "": break
-
-    elif escolha == '1':
-        saldo = Saque(saldo)
-        
-    elif escolha == '2':
-        saldo = Deposito(saldo)
-
-    elif escolha == '3':
-        Extrato()
+        return print(f"\nSaque de R$ {saque:.2f} realizado com sucesso!")
     
-    else: 
-        print("Valor inválido!")
-        input("\nPressione Enter para continuar...")
 
-    texto = f"Saldo: R$ {saldo:.2f}"
+    def Perfil(self):
+        os.system('cls')
+        print("\nPerfil do cliente")
+        time.sleep(2)
+        print(f"Nome: {self.usuario}")
+        print(f"CPF: {self.CPF}")
+        print(f"Nascimento: {self.nascimento}")
+        print(f"Saldo: R$ {self.saldo:.2f}")
+        time.sleep(2)
+
+        while True:
+            opcao = input(f"\nDeseja alterar o seu perfil? \n1 - Sim \n2 - Não \n--> ")
+
+
+class Interface:
+    def Menu():
+        while True:
+            os.system('cls')
+            print("Bem vindo, " + cliente.usuario)
+            print(f"\nSelecione uma opção"
+                f"\n1 - Realizar deposito"
+                f"\n2 - Realizar saque"
+                f"\nenter - Sair")
+            opcao = input("--> ")
+            
+            if opcao == "": break
+            elif opcao == "1": cliente.Deposito()
+            elif opcao == "2": cliente.Saque()
+            else: print("Opção invalida")
+            time.sleep(4)
+
+    def Criar_usuario():
+        os.system('cls')
+        print("Deseja criar um novo usuario ou prosseguir anônimo? \n1 - Sim \n2 - Não")
+        time.sleep(2)
+
+        while True:
+            #fazer seleção para:
+            #criar o usuario
+            #proseguir anonimo
+            #corrigir erros
+
+
+
 os.system('cls')
-print("Fechando Programa", end='')
-Carregando()
-print("\n\n")
+cliente = Cliente()
+interface = Interface()
+
+print("Iniciando Sistema Bancario")
+time.sleep(2)
+
+
+interface.Menu()
+
+print("\nSaindo do sistema")
+time.sleep(2)
+os.system('cls')
