@@ -108,6 +108,7 @@ class Interface:
             #criar o usuario
             #proseguir anonimo
             #corrigir erros
+            break
 
 
 
