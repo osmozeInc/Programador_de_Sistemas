@@ -16,7 +16,7 @@ class Banco:
 
 
 class Cliente(Banco):
-    def __init__(self, name = "", CPF = "", nascimento = "", email = "", celular = ""):
+    def __init__(self, name ="", CPF ="", nascimento="", email="", celular=""):
         self.usuario = name
         self.CPF = CPF
         self.nascimento = nascimento
@@ -71,7 +71,7 @@ class Cliente(Banco):
                 else:
                     print("\nSaldo insuficiente")
                     time.sleep(2)
-            except: 
+            except:
                 print("\nValor invalido! \nretomando operação")
                 time.sleep(3)
 
@@ -103,11 +103,11 @@ class Interface:
             os.system('cls')
             print("Bem vindo, " + self.cliente.usuario)
             print(f"\nSelecione uma opção"
-                f"\n----------------------"
-                f"\n1 - Realizar deposito"
-                f"\n2 - Realizar saque"
-                f"\n3 - Ver perfil"
-                f"\nenter - Sair")
+                  f"\n----------------------"
+                  f"\n1 - Realizar deposito"
+                  f"\n2 - Realizar saque"
+                  f"\n3 - Ver perfil"
+                  f"\nenter - Sair")
             opcao = input("--> ")
             
             if opcao == "": break
@@ -117,14 +117,14 @@ class Interface:
             else:
                 print("Opção invalida")
                 time.sleep(4)
-    
+
     def Login_usuario(self):
         os.system('cls')
         print("Deseja criar um novo usuario ou prosseguir anônimo? \nenter - Criar Usuário \nEsc - Proseguir Anônimo")
         while True:
             key = keyboard.read_key()
             if key == "enter":
-                interface.Criar_usuario()
+                self.Criar_usuario()
                 break
             elif key == "esc":
                 print("\nIndo para o menu anonimamente \nSeus dados estarão em branco")
@@ -142,8 +142,8 @@ class Interface:
         print("Informe seus dados ou pressione enter para prosseguir")
         input("DEV: 'trabalando nessa parte ainda'")
 
-        
-        
+
+
 
 
 class Setings:
@@ -164,7 +164,7 @@ class Setings:
                 name = name.lower().title().strip()
                 self.cliente.usuario = name
             break
-    
+
     def Alterar_CPF(self):
         while True:
             os.system('cls')
@@ -184,7 +184,7 @@ os.system('cls')
 cliente = Cliente()
 interface = Interface(cliente)
 
-print("Iniciando Sistema Bancario")
+print("Iniciando Sistema Bancário")
 time.sleep(2)
 
 
