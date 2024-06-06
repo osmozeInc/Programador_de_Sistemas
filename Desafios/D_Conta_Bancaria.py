@@ -36,6 +36,7 @@ class Cliente(Banco):
                 deposito = float(deposito)
                 if deposito > 0:
                     self.saldo += deposito
+                    print(f"\nDeposito de R$ {deposito:.2f} realizado com sucesso!")
                     break
                 elif deposito == 0:
                     print("\nDeposito cancelado")
@@ -48,7 +49,6 @@ class Cliente(Banco):
                 print("\nValor invalido! \nretomando operação")
                 time.sleep(3)
 
-        return print(f"\nDeposito de R$ {deposito:.2f} realizado com sucesso!")
 
     def Saque(self):
         print("\nComeçando operação de Saque")
@@ -62,6 +62,7 @@ class Cliente(Banco):
                 saque = float(saque)
                 if saque > 0 and saque <= self.saldo:
                     self.saldo -= saque
+                    print(f"\nSaque de R$ {saque:.2f} realizado com sucesso!")
                     break
                 if saque == 0:
                     print("\nSaque cancelado")
@@ -74,7 +75,6 @@ class Cliente(Banco):
                 print("\nValor invalido! \nretomando operação")
                 time.sleep(3)
 
-        return print(f"\nSaque de R$ {saque:.2f} realizado com sucesso!")
 
     def Perfil(self):
         os.system('cls')
@@ -101,7 +101,7 @@ class Interface:
         while True:
             sys.stdout.flush()
             os.system('cls')
-            print("Bem vindo, " + cliente.usuario)
+            print("Bem vindo, " + self.cliente.usuario)
             print(f"\nSelecione uma opção"
                 f"\n----------------------"
                 f"\n1 - Realizar deposito"
@@ -111,9 +111,9 @@ class Interface:
             opcao = input("--> ")
             
             if opcao == "": break
-            elif opcao == "1": cliente.Deposito()
-            elif opcao == "2": cliente.Saque()
-            elif opcao == "3": cliente.Perfil()
+            elif opcao == "1": self.cliente.Deposito()
+            elif opcao == "2": self.cliente.Saque()
+            elif opcao == "3": self.cliente.Perfil()
             else:
                 print("Opção invalida")
                 time.sleep(4)
@@ -134,23 +134,15 @@ class Interface:
     def Criar_usuario(self):
         os.system('cls')
         print("Informações Pessoais")
-        Setings.Alterar_nome()
-        Setings.Alterar_CPF()
+        self.setings.Alterar_nome()
+        self.setings.Alterar_CPF()
         
     def Modificar_usuario(self):
         os.system('cls')
         print("Informe seus dados ou pressione enter para prosseguir")
-        
-        name = input(f"Nome: {cliente.usuario}\n").strip()
-        cpf = input("CPF: ")
-        nascimento = input("Nascimento: ")
+        input("DEV: 'trabalando nessa parte ainda'")
 
-        if name != "":
-            self.cliente.usuario = name
-        if cpf != "":
-            self.cliente.CPF = cpf
-        if nascimento != "":
-            self.cliente.nascimento = nascimento
+        
         
 
 
@@ -165,24 +157,24 @@ class Setings:
         while True:
             os.system('cls')
             name = input("Nome: ")
-            if self.caractere_especial in name or self.caractere_numero in name:
+            if any(char in self.caractere_especial for char in name) or any(char in self.caractere_numero for char in name) or name == "":
                 print("Nome não pode conter caracteres especiais ou numeros")
                 time.sleep(3)
             else:
+                name = name.lower().title().strip()
                 self.cliente.usuario = name
-            name = name.lower().title().strip()
             break
     
     def Alterar_CPF(self):
         while True:
             os.system('cls')
             cpf = input("CPF: ")
-            if self.caractere_especial in cpf or self.caractere_letra in cpf or len(cpf)!= 11:
+            if any(char in self.caractere_especial for char in cpf) in any(char in self.caractere_numero for char in cpf) or len(cpf)!= 11 or cpf == "":
                 print("Seu CPF deve ter 11 numeros e nenhum caractere especial ou letra")
                 time.sleep(3)
             else:
                 cpf = cpf[:3] + "." + cpf[3:6] + "." + cpf[6:9] + "-" + cpf[9:]
-                self.cliente.usuario = cpf
+                self.cliente.CPF = cpf
             break
 
 
