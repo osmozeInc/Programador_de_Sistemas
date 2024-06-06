@@ -16,7 +16,7 @@ class Banco:
 
 
 class Cliente(Banco):
-    def __init__(self, name ="", CPF ="", nascimento="", email="", celular=""):
+    def __init__(self, name="", CPF="", nascimento="", email="", celular=""):
         self.usuario = name
         self.CPF = CPF
         self.nascimento = nascimento
@@ -109,7 +109,7 @@ class Interface:
                   f"\n3 - Ver perfil"
                   f"\nenter - Sair")
             opcao = input("--> ")
-            
+
             if opcao == "": break
             elif opcao == "1": self.cliente.Deposito()
             elif opcao == "2": self.cliente.Saque()
