@@ -204,38 +204,57 @@ class Setings:
                 break
 
     def Alterar_celular(self):
+        while True:
+            os.system('cls')
+            celular = input("Numero do celular \n+55 DDD: ")
+            if any(char in self.caractere_especial for char in celular) or any(char in self.caractere_letra for char in celular) or len(celular)!= 2:
+                print("DDD invalido!")
+                time.sleep(3)
+            else:
                 while True:
                     os.system('cls')
-                    celular = input("Numero do celular \n+55 DDD: ")
-                    if any(char in self.caractere_especial for char in celular) or any(char in self.caractere_letra for char in celular) or len(celular)!= 2:
-                        print("DDD invalido!")
+                    celular += input(f"Numero do celular \n+55 ({celular}) 9")
+                    if any(char in self.caractere_especial for char in celular) or any(char in self.caractere_letra for char in celular) or len(celular)!= 10:
+                        print("Seu celular deve ter 8 numeros e nenhum caractere especial")
                         time.sleep(3)
                     else:
-                        while True:
-                            os.system('cls')
-                            celular += input(f"Numero do celular \n+55 ({celular}) 9")
-                            if any(char in self.caractere_especial for char in celular) or any(char in self.caractere_letra for char in celular) or len(celular)!= 10:
-                                print("Seu celular deve ter 8 numeros e nenhum caractere especial")
-                                time.sleep(3)
-                            else:
-                                self.cliente.celular = celular
-                                break
+                        self.cliente.celular = celular
                         break
+                break
 
     def Alterar_senha(self):
-                while True:
-                    os.system('cls')
-                    
-                    print("Senha: ", end="")
-                    senha_1 = 
-                    print("Confirme sua senha: ", end="")
-                    senha_2 = 
-                    if senha_1 != senha_2:
-                        print("As senhas não coincidem!")
-                        time.sleep(3)
-                    else:
-                        self.cliente.senha = senha_1
-                        break
+        while True:
+            os.system('cls')
+            
+            print("Digite sua senha: ")
+            senha_1 = self.Seguranca_senha()
+            print("Confirme sua senha: ")
+            senha_2 = self.Seguranca_senha()
+            if senha_1 != senha_2:
+                print("As senhas não coincidem!")
+                time.sleep(3)
+            else:
+                self.cliente.senha = senha_1
+                break
+        input()
+        input()
+        sys.stdout.flush()
+
+    def Seguranca_senha(self):
+        senha = ''
+        while True:
+            tecla = keyboard.read_event()
+            if tecla.event_type == 'down':
+                if tecla.name == 'enter':
+                    break
+                elif tecla.name == 'backspace':
+                    senha += senha[:-1]
+                    print("\b \b", end="", flush=True)
+                else:
+                    senha += tecla.name
+                    print("*", end="", flush=True)
+        print()
+        return senha
 
 
 
@@ -247,7 +266,6 @@ settings = Setings(cliente)
 
 print("Iniciando Sistema Bancário")
 time.sleep(2)
-settings.Alterar_senha()
 
 interface.Login_usuario()
 interface.Menu()
@@ -259,4 +277,4 @@ os.system('cls')
 
 
 # procurar biblioteca para manipular calendário e ajeitar a parte de alterar_nascimento
-# procurar biblioteca para cmuflar a senha quando o usuario digitar
+# remover o read_key por input onde for possivel
