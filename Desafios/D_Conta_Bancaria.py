@@ -278,3 +278,5 @@ os.system('cls')
 
 # procurar biblioteca para manipular calendário e ajeitar a parte de alterar_nascimento
 # remover o read_key por input onde for possivel
+# colocar mais critérios para o email ser aceito
+# colocar mais critérios para a senha ser aceita
