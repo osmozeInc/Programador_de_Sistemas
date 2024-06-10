@@ -3,20 +3,11 @@ import time
 import keyboard  # type: ignore # "pip install keyboard" no prompt para instalar a biblioteca
 import sys
 import re
-
-class Banco:
-    def __init__(self) -> None:
-        pass
-
-    def Saque(self):
-        pass
-
-    def Deposito(self):
-        pass
+from datetime import datetime
 
 
 
-class Cliente(Banco):
+class Cliente:
     def __init__(self, name="", CPF="", nascimento="", email="", celular="", senha=""):
         self.usuario = name
         self.CPF = CPF
@@ -25,6 +16,7 @@ class Cliente(Banco):
         self.celular = celular
         self.senha = senha
         self.saldo = 0.00
+        self.interface = Interface(self)
 
     def Deposito(self):
         print("\nComeçando operação de deposito")
@@ -32,7 +24,6 @@ class Cliente(Banco):
 
         while True:
             os.system('cls')
-
             try:
                 deposito = input(f"Saldo: R$ {self.saldo:.2f} \nQuanto quer depositar? \n--> ")
                 deposito = float(deposito)
@@ -42,14 +33,14 @@ class Cliente(Banco):
                     break
                 elif deposito == 0:
                     print("\nDeposito cancelado")
-                    time.sleep(3)
-                    return 0
+                    break
                 else:
                     print("Deposito precisa ser maior que 0")
                     time.sleep(3)
             except:
                 print("\nValor invalido! \nretomando operação")
                 time.sleep(3)
+        time.sleep(3)
 
     def Saque(self):
         print("\nComeçando operação de Saque")
@@ -68,27 +59,34 @@ class Cliente(Banco):
                 if saque == 0:
                     print("\nSaque cancelado")
                     time.sleep(3)
-                    return 0
+                    break
                 else:
                     print("\nSaldo insuficiente")
                     time.sleep(2)
             except:
                 print("\nValor invalido! \nretomando operação")
                 time.sleep(3)
+        time.sleep(3)
 
     def Perfil(self):
         os.system('cls')
-        print("\nPerfil do cliente")
-        print(f"Nome: {self.usuario}")
-        print(f"CPF: {self.CPF}")
-        print(f"Nascimento: {self.nascimento}")
-        print(f"Saldo: R$ {self.saldo:.2f}")
+        print(f"\nPerfil do cliente"
+              f"\nNome: {self.usuario}"
+              f"\nCPF: {self.CPF}"
+              f"\nNascimento: {self.nascimento}"
+              f"\nEmail: {self.email}"
+              f"\nCelular: {self.celular}")
 
-        print("\nenter - continuar")
-        keyboard.wait("enter")
-        sys.stdout.flush()
-        print("Retornando ao menu")
-        time.sleep(2)
+        print("\nEnter - Menu \nEsc - Editar informações")
+        while True:
+            key = keyboard.read_event()
+            if key.event_type == 'down':
+                if key.name == "enter":
+                    break
+                if key.name == "esc":
+                    self.interface.Criar_usuario()
+                    break   
+
 
 
 
@@ -107,16 +105,17 @@ class Interface:
                   f"\n1 - Realizar deposito"
                   f"\n2 - Realizar saque"
                   f"\n3 - Ver perfil"
-                  f"\nenter - Sair")
-            opcao = input("--> ")
+                  f"\nenter - Sair"
+                  f"\n--> ", end='')
+            opcao = input()
 
             if opcao == "": break
             elif opcao == "1": self.cliente.Deposito()
-            elif opcao == "2": self.cliente.Saque()
             elif opcao == "3": self.cliente.Perfil()
+            elif opcao == "2": self.cliente.Saque()
             else:
                 print("Opção invalida")
-                time.sleep(4)
+                time.sleep(3)
 
     def Login_usuario(self):
         os.system('cls')
@@ -124,26 +123,21 @@ class Interface:
         while True:
             key = keyboard.read_event()
             if key.name == "enter":
+                input()
                 self.Criar_usuario()
                 break
             elif key.name == "esc":
                 print("\nIndo para o menu anonimamente \nSeus dados estarão em branco")
-                time.sleep(5)
+                time.sleep(4)
                 break
 
     def Criar_usuario(self):
-        input()
         self.setings.Alterar_nome()
         self.setings.Alterar_CPF()
         self.setings.Alterar_nascimento()
         self.setings.Alterar_email()
         self.setings.Alterar_celular()
         self.setings.Alterar_senha()
-        
-    def Modificar_usuario(self):
-        os.system('cls')
-        print("Informe seus dados ou pressione enter para prosseguir")
-        input("DEV: 'trabalando nessa parte ainda'")
 
 
 
@@ -186,11 +180,17 @@ class Setings:
             nascimento += input("Mês: ")
             nascimento += input("Ano: ")
             if any(char in self.caractere_especial for char in nascimento) or any(char in self.caractere_letra for char in nascimento) or len(nascimento)!= 8:
-                print("Seu nascimento deve ter 8 numeros e nenhum caractere especial")
+                print("A data especificada é inválida")
                 time.sleep(3)
             else:
-                self.cliente.nascimento = nascimento[:2] + "/" + nascimento[2:4] + "/" + nascimento[4:]
-                break
+                nascimento = nascimento[:2] + "/" + nascimento[2:4] + "/" + nascimento[4:]
+                try:
+                    data = datetime.strptime(nascimento, "%d/%m/%Y")
+                    break
+                except ValueError:
+                    print("Data invalida!")
+                    time.sleep(3)
+        self.cliente.nascimento = nascimento
 
     def Alterar_email(self):
         while True:
