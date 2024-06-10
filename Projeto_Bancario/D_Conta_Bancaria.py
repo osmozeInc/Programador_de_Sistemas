@@ -275,8 +275,9 @@ time.sleep(2)
 os.system('cls')
 
 
-
-# procurar biblioteca para manipular calendário e ajeitar a parte de alterar_nascimento
-# remover o read_key por input onde for possivel
+# DEV: MELHORIAS PARA PESQUISAR: 
+#
 # colocar mais critérios para o email ser aceito
 # colocar mais critérios para a senha ser aceita
+# adicionar seção para editar os dados
+# adicionar o extrato
