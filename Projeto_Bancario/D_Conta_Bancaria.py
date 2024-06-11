@@ -163,15 +163,14 @@ class Setings:
                 break
 
     def Alterar_CPF(self):
-        while True:
-            os.system('cls')
-            cpf = input("CPF: ")
-            if any(char in self.caractere_especial for char in cpf) or any(char in self.caractere_letra for char in cpf) or len(cpf)!= 11:
-                print("Seu CPF deve ter 11 numeros e nenhum caractere especial ou letra")
-                time.sleep(3)
-            else:
-                self.cliente.CPF = cpf[:3] + "." + cpf[3:6] + "." + cpf[6:9] + "-" + cpf[9:]
-                break
+        os.system('cls')
+        cpf = input("CPF: ")
+        if any(char in self.caractere_especial for char in cpf) or any(char in self.caractere_letra for char in cpf) or len(cpf)!= 11:
+            print("Seu CPF deve ter 11 numeros e nenhum caractere especial ou letra")
+            time.sleep(3)
+            self.Alterar_CPF()
+        else:
+            self.cliente.CPF = cpf[:3] + "." + cpf[3:6] + "." + cpf[6:9] + "-" + cpf[9:]
 
     def Alterar_nascimento(self):
         while True:
@@ -275,9 +274,17 @@ time.sleep(2)
 os.system('cls')
 
 
-# DEV: MELHORIAS PARA PESQUISAR: 
+# DEV OTIMIZAÇÃO: MELHORIAS PARA PESQUISAR: 
 #
 # colocar mais critérios para o email ser aceito
 # colocar mais critérios para a senha ser aceita
 # adicionar seção para editar os dados
+#
+#
+#
+# DEV IMPLEMENTAÇÃO:
 # adicionar o extrato
+# fazer um comprovante para cada saque e depósito
+# conseguir exportar dados e o extrato
+# salvar informações em um banco de dados
+# esperar gabriel(ou pergunto a IA) me responder e decidir se deixo o while ou rechamo a função
