@@ -164,13 +164,15 @@ class Setings:
 
     def Alterar_CPF(self):
         os.system('cls')
-        cpf = input("CPF: ")
-        if any(char in self.caractere_especial for char in cpf) or any(char in self.caractere_letra for char in cpf) or len(cpf)!= 11:
-            print("Seu CPF deve ter 11 numeros e nenhum caractere especial ou letra")
-            time.sleep(3)
-            self.Alterar_CPF()
-        else:
-            self.cliente.CPF = cpf[:3] + "." + cpf[3:6] + "." + cpf[6:9] + "-" + cpf[9:]
+        while True:
+            cpf = input("CPF: ")
+            if any(char in self.caractere_especial for char in cpf) or any(char.isalpha() for char in cpf) or len(cpf)!= 11:
+                print("Seu CPF deve ter 11 numeros e nenhum caractere especial ou letra")
+                time.sleep(3)
+                self.Alterar_CPF()
+            else:
+                self.cliente.CPF = cpf[:3] + "." + cpf[3:6] + "." + cpf[6:9] + "-" + cpf[9:]
+                break
 
     def Alterar_nascimento(self):
         while True:
