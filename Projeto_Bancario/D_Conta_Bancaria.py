@@ -4,10 +4,39 @@ import keyboard  # "pip install keyboard" no prompt para instalar a biblioteca
 import sys
 import re
 from datetime import datetime
+import uuid
 
 
 class Banco:
-    operacao = []
+    def __init__(self):
+        self.cliente = cliente
+        self.historico = []
+
+    def Registro_de_operacao(self, valor, tipo, descricao):
+        operacao = {
+            "id": str(uuid.uuid4()),
+            "valor": valor,
+            "data": str(datetime.now().strftime("%d/%m/%Y - %H:%M:%S")),
+            "usuario": self.cliente.usuario,
+            "tipo": tipo,
+            "descricao": descricao,
+        }
+        self.historico.append(operacao)
+        
+    def Comprovante_de_transacao(self):
+        print(f"\nDATA: {self.historico['data']}"
+              f"\nVALOR: R$: {self.historico['valor']}"
+              f"\n-----------------------------"
+              f"\n"
+              f"\nTIPO DE OPERAÇÃO: {self.historico['tipo']}"
+              f"\nID: {self.historico['id']}"
+              
+              )
+
+    
+    def Exibir_extrato(self):
+        pass
+
 
 
 
@@ -22,6 +51,7 @@ class Cliente:
         self.saldo = 0.00
         self.extrato = {}
         self.interface = Interface(self)
+        self.banco = Banco()
 
     def Deposito(self):
         print("\nComeçando operação de deposito")
@@ -35,6 +65,8 @@ class Cliente:
                 if deposito > 0:
                     self.saldo += deposito
                     print(f"\nDeposito de R$ {deposito:.2f} realizado com sucesso!")
+                    descricao = input("Escreva uma descrição do deposito ou deixe vazia:\n")
+                    self.banco.Registro_de_operacao(deposito, "Deposito", descricao)
                     break
                 elif deposito == 0:
                     print("\nDeposito cancelado")
@@ -285,7 +317,7 @@ time.sleep(2)
 os.system('cls')
 
 
-# DEV OTIMIZAÇÃO: MELHORIAS PARA PESQUISAR: 
+# DEV OTIMIZAÇÃO: 
 #
 # colocar mais critérios para o email ser aceito
 # colocar mais critérios para a senha ser aceita
@@ -297,5 +329,5 @@ os.system('cls')
 # adicionar o extrato
 # fazer um comprovante para cada saque e depósito
 # conseguir exportar dados e o extrato
-# salvar informações em um banco de dados
+# salvar informações em um banco de dados e depois remover usuario em branco
 # esperar gabriel(ou pergunto a IA) me responder e decidir se deixo o while ou rechamo a função
