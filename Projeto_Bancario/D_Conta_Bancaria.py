@@ -8,7 +8,7 @@ import uuid
 
 
 class Banco:
-    def __init__(self):
+    def __init__(self, cliente):
         self.cliente = cliente
         self.historico = []
 
@@ -40,7 +40,6 @@ class Banco:
 
 
 
-
 class Cliente:
     def __init__(self, name="", CPF="", nascimento="", email="", celular="", senha=""):
         self.usuario = name
@@ -52,7 +51,7 @@ class Cliente:
         self.saldo = 0.00
         self.extrato = {}
         self.interface = Interface(self)
-        self.banco = Banco()
+        self.banco = Banco(self)
 
     def Deposito(self):
         print("\nComeçando operação de deposito")
@@ -187,8 +186,6 @@ class Setings:
     def __init__(self, cliente):
         self.cliente = cliente
         self.caractere_especial = "!@#$%&*()_-+={[}]|\:;'<>?,./"
-        self.caractere_numero = "0123456789"
-        self.caractere_letra = "abcdefghijklmnopqrstuvwxyz"
         self.email_padrao = r'^[\w\.-]+@[\w\.-]+\.\w+$'
 
     def Alterar_nome(self):
@@ -196,7 +193,7 @@ class Setings:
             os.system('cls')
             sys.stdout.flush()
             name = input("Nome: ")
-            if any(char in self.caractere_especial for char in name) or any(char in self.caractere_numero for char in name) or name == "":
+            if any(char in self.caractere_especial for char in name) or any(char.isnumeric() for char in name) or name == "":
                 print("Nome não pode conter caracteres especiais ou numeros")
                 time.sleep(3)
             else:
@@ -222,7 +219,7 @@ class Setings:
             nascimento = input("Data de nascimento \nDia: ")
             nascimento += input("Mês: ")
             nascimento += input("Ano: ")
-            if any(char in self.caractere_especial for char in nascimento) or any(char in self.caractere_letra for char in nascimento) or len(nascimento)!= 8:
+            if any(char in self.caractere_especial for char in nascimento) or any(char.isalpha() for char in nascimento) or len(nascimento)!= 8:
                 print("A data especificada é inválida")
                 time.sleep(3)
             else:
@@ -250,7 +247,7 @@ class Setings:
         while True:
             os.system('cls')
             celular = input("Numero do celular \n+55 DDD: ")
-            if any(char in self.caractere_especial for char in celular) or any(char in self.caractere_letra for char in celular) or len(celular)!= 2:
+            if any(char in self.caractere_especial for char in celular) or any(char.isalpha() for char in celular) or len(celular)!= 2:
                 print("DDD invalido!")
                 time.sleep(3)
             else:
@@ -331,4 +328,3 @@ os.system('cls')
 # fazer um comprovante para cada saque e depósito
 # conseguir exportar dados e o extrato
 # salvar informações em um banco de dados e depois remover usuario em branco
-# esperar gabriel(ou pergunto a IA) me responder e decidir se deixo o while ou rechamo a função
