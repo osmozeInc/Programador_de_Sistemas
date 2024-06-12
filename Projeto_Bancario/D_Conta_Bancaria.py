@@ -30,10 +30,11 @@ class Banco:
               f"\n"
               f"\nTIPO DE OPERAÇÃO: {self.historico['tipo']}"
               f"\nID: {self.historico['id']}"
-              
-              )
+              f"\n"
+              f"\nUSUÁRIO: {self.historico['usuario']}"
+              f"\n-----------------------------"
+              f"\nDESCRIÇÃO: \n{self.historico['descricao']}")
 
-    
     def Exibir_extrato(self):
         pass
 
