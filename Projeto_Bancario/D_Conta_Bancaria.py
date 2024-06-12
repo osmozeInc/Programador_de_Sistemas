@@ -1,9 +1,13 @@
 import os
 import time
-import keyboard  # type: ignore # "pip install keyboard" no prompt para instalar a biblioteca
+import keyboard  # "pip install keyboard" no prompt para instalar a biblioteca
 import sys
 import re
 from datetime import datetime
+
+
+class Banco:
+    operacao = []
 
 
 
@@ -16,6 +20,7 @@ class Cliente:
         self.celular = celular
         self.senha = senha
         self.saldo = 0.00
+        self.extrato = {}
         self.interface = Interface(self)
 
     def Deposito(self):
@@ -68,6 +73,9 @@ class Cliente:
                 time.sleep(3)
         time.sleep(3)
 
+    def Extrato(self):
+        pass
+
     def Perfil(self):
         os.system('cls')
         print(f"\nPerfil do cliente"
@@ -89,7 +97,6 @@ class Cliente:
 
 
 
-
 class Interface:
     def __init__(self, cliente):
         self.cliente = cliente
@@ -104,15 +111,17 @@ class Interface:
                   f"\n----------------------"
                   f"\n1 - Realizar deposito"
                   f"\n2 - Realizar saque"
-                  f"\n3 - Ver perfil"
+                  f"\n3 - Visualizar extrato"
+                  f"\n4 - Ver perfil"
                   f"\nenter - Sair"
                   f"\n--> ", end='')
             opcao = input()
 
             if opcao == "": break
             elif opcao == "1": self.cliente.Deposito()
-            elif opcao == "3": self.cliente.Perfil()
             elif opcao == "2": self.cliente.Saque()
+            elif opcao == "3": self.cliente.Extrato()
+            elif opcao == "4": self.cliente.Perfil()
             else:
                 print("Opção invalida")
                 time.sleep(3)
