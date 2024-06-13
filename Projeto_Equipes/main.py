@@ -44,6 +44,7 @@ class Students:
         time.sleep(3)
 
     def Ver_nomes(self):
+        os.system('cls')
         try:
             with open("nomes.txt", "r") as file:
                 nomes = file.readlines()
@@ -72,33 +73,43 @@ class Students:
         time.sleep(3)
 
     def Montar_equipes(self):
-        os.system('cls')
         print("Montando equipes\n")
-        j = 0
+        time.sleep(2)
+
         with open("nomes.txt", "r") as file:
+            lista_equipes = []
             for nome in file:
-                while True:
-                    print(f"Adicionar {(nome.strip())} a equipe {j+1}?"
-                          "\nenter - fechar equipe"
-                          "\n1 - sim"
-                          "\n2 - não")
-                    adicionar = input("--> ")
-                    if adicionar == "1":
-                        self.equipes[j].append(nome)
-                        print(f"{nome.strip()} adicionado")
-                        time.sleep(1.2)
-                        break
-                    elif adicionar == "2":
-                        print(f"{nome.strip()} não adicionado")
-                        time.sleep(1.2)
-                        break
-                    elif adicionar == "":
-                        j += 1
-                        self.equipes.append([])
+                lista_equipes.append((nome).strip())
+            for i in range(0, 4):
+                j = 0
+                while j < 4:
+                    for nome in lista_equipes:
                         os.system('cls')
-                    else:
-                        print("Opção inválida")
-                        time.sleep(1.5)
+                        print(f"Adicionar {(nome)} a equipe {i+1}?"
+                            "\nenter - fechar equipe"
+                            "\n1 - sim"
+                            "\n2 - não")
+                        adicionar = input("--> ")
+
+                        if adicionar == "1":
+                            self.equipes[i].append(nome)
+                            lista_equipes.remove(nome)
+                            print(f"{nome} adicionado")
+                            time.sleep(1.2)
+
+                        elif adicionar == "2":
+                            print(f"{nome} não adicionado")
+                            time.sleep(1.2)
+
+                        elif adicionar == "":
+                            self.equipes.append([])
+                            i += 1
+                            break
+
+                        else:
+                            print("Opção inválida")
+                            time.sleep(1.5)
+
         self.Salvar_equipes()
 
     def Salvar_equipes(self):
@@ -106,9 +117,9 @@ class Students:
         try:
             with open("equipes.txt", "w") as file:
                 for i, equipe in enumerate(self.equipes, start=1):
-                    file.write(f"Equipe {i}\n")
+                    file.write(f"Equipe {i}")
                     for nome in equipe:
-                        file.write(f"{nome}\n")
+                        file.write(f"{nome}")
             print("Equipes salvas")
             input()
         except IOError as e:
