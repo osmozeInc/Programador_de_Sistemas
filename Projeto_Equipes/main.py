@@ -6,6 +6,7 @@ import sys
 class Students:
     lista_de_nomes = []
     nomes_registrados = False
+    equipes = [[]]
 
     def Adicionar_nomes(self):
         os.system('cls')
@@ -33,7 +34,6 @@ class Students:
                             print("\nNomes salvos")
                             input()
                         break
-
                     except IOError as e:
                         print(f"Erro ao salvar nomes: {e}")
 
@@ -41,19 +41,76 @@ class Students:
                     print("Cancelando")
                     self.lista_de_nomes.clear()
                     break
-                time.sleep(3)
+        time.sleep(3)
 
     def Ver_nomes(self):
         try:
             with open("nomes.txt", "r") as file:
-                x = 1
-                for nome in file:
-                    print(f" {x}. nome: {nome.strip()}")
-                    x += 1
-        except:
-            print("Nenhum nome salvo")
-            input("\nPressione enter para continuar")
+                nomes = file.readlines()
+                for i, nome in enumerate(nomes, start=1):
+                    print(f" {i}. {nome}", end="")
+        except FileNotFoundError:
+            print("Não há nomes salvos")
         input("\nPressione enter para continuar")
+
+    def Limpar_lista(self):
+        os.system('cls')
+        print("Todos os nomes serão apagados")
+        print("Tem certeza? (enter) ou (esc)")
+        while True:
+            key = keyboard.read_event()
+            if key.event_type == "down":
+                if key.name == "enter":
+                    with open("nomes.txt", "w") as arquivo:
+                        arquivo.write("")
+                    print("Lista limpa")
+                    input()
+                    break
+                elif key.name == "esc":
+                    print("Cancelando")
+                    break
+        time.sleep(3)
+
+    def Montar_equipes(self):
+        os.system('cls')
+        print("Montando equipes\n")
+        j = 0
+        with open("nomes.txt", "r") as file:
+            for nome in file:
+                while True:
+                    print(f"Adicionar {(nome.strip())} a equipe {j+1}?"
+                          "\n1 - sim"
+                          "\n2 - não"
+                          "\nenter - fechar equipe")
+                    adicionar = input("--> ")
+                    if adicionar == "1":
+                        self.equipes[j].append(nome)
+                        print(f"{nome} adicionado")
+                        time.sleep(1.2)
+                    elif adicionar == "2":
+                        print(f"{nome} não adicionado")
+                        time.sleep(1.2)
+                    elif adicionar == "":
+                        j += 1
+                        self.equipes.append([])
+                        os.system('cls')
+                    else:
+                        print("Opção inválida")
+                        time.sleep(1.5)
+        self.Salvar_equipes()
+
+    def Salvar_equipes(self):
+        input("Salvar equipes? (enter) ou (esc)")
+        try:
+            with open("equipes.txt", "w") as file:
+                for i, equipe in enumerate(self.equipes, start=1):
+                    file.write(f"Equipe {i}\n")
+                    for nome in equipe:
+                        file.write(f"{nome}\n")
+            print("Equipes salvas")
+            input()
+        except IOError as e:
+            print(f"Erro ao salvar equipes: {e}")
 
 
 
@@ -64,13 +121,17 @@ def Menu():
               "\n----------------------"
               "\n1 - Adicionar nomes"
               "\n2 - Ver nomes salvos"
-              "\n3 - Montar equipes"
+              "\n3 - Limpar lista"
+              "\n4 - Montar equipes"
               "\nenter - Sair")
         
         opcao = input("--> ")
         if opcao == "": break
         elif opcao == "1": students.Adicionar_nomes()
         elif opcao == "2": students.Ver_nomes()
+        elif opcao == "3": students.Limpar_lista()
+        elif opcao == "4": students.Montar_equipes()
+        
 
     
 
