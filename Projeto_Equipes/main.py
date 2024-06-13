@@ -79,17 +79,19 @@ class Students:
             for nome in file:
                 while True:
                     print(f"Adicionar {(nome.strip())} a equipe {j+1}?"
+                          "\nenter - fechar equipe"
                           "\n1 - sim"
-                          "\n2 - não"
-                          "\nenter - fechar equipe")
+                          "\n2 - não")
                     adicionar = input("--> ")
                     if adicionar == "1":
                         self.equipes[j].append(nome)
-                        print(f"{nome} adicionado")
+                        print(f"{nome.strip()} adicionado")
                         time.sleep(1.2)
+                        break
                     elif adicionar == "2":
-                        print(f"{nome} não adicionado")
+                        print(f"{nome.strip()} não adicionado")
                         time.sleep(1.2)
+                        break
                     elif adicionar == "":
                         j += 1
                         self.equipes.append([])
@@ -112,6 +114,14 @@ class Students:
         except IOError as e:
             print(f"Erro ao salvar equipes: {e}")
 
+    def Ver_equipes(self):
+        try:
+            with open("equipes.txt", "r") as file:
+                for equipe in file:
+                    print(equipe)
+        except FileNotFoundError:
+            print("Não há equipes salvas")
+        input("\nPressione enter para continuar")
 
 
 def Menu():
@@ -123,6 +133,7 @@ def Menu():
               "\n2 - Ver nomes salvos"
               "\n3 - Limpar lista"
               "\n4 - Montar equipes"
+              "\n5 - Ver equipes"
               "\nenter - Sair")
         
         opcao = input("--> ")
@@ -131,6 +142,7 @@ def Menu():
         elif opcao == "2": students.Ver_nomes()
         elif opcao == "3": students.Limpar_lista()
         elif opcao == "4": students.Montar_equipes()
+        elif opcao == "5": students.Ver_equipes()
         
 
     
