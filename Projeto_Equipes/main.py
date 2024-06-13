@@ -18,7 +18,7 @@ class Students:
             self.lista_de_nomes.append(nome)
         self.Savar_lista()
     
-    def Savar_lista(self):
+    def Salvar_lista(self):
         os.system('cls')
         print("nomes na lista:\n", self.lista_de_nomes)
         print("\nSalvar? (enter)"
@@ -80,7 +80,8 @@ class Students:
             lista_equipes = []
             for nome in file:
                 lista_equipes.append((nome).strip())
-            for i in range(0, 4):
+            i = 0
+            while i < 4:
                 j = 0
                 while j < 4:
                     for nome in lista_equipes:
@@ -134,6 +135,9 @@ class Students:
             print("Não há equipes salvas")
         input("\nPressione enter para continuar")
 
+    def Limpar_equipes(self):
+        print
+
 
 def Menu():
     while True:
@@ -145,6 +149,7 @@ def Menu():
               "\n3 - Limpar lista"
               "\n4 - Montar equipes"
               "\n5 - Ver equipes"
+              "\n6 - limpar equipes"
               "\nenter - Sair")
         
         opcao = input("--> ")
@@ -161,3 +166,7 @@ def Menu():
 
 students = Students()
 Menu()
+
+
+#limitar o programa a 4 equipes com o try
+#limitar o numero de participantes por equipe
