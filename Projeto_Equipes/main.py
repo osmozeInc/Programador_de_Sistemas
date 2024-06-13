@@ -136,7 +136,22 @@ class Students:
         input("\nPressione enter para continuar")
 
     def Limpar_equipes(self):
-        print
+        os.system('cls')
+        print("Todos as equipes serão apagadas")
+        print("Tem certeza? (enter) ou (esc)")
+        while True:
+            key = keyboard.read_event()
+            if key.event_type == "down":
+                if key.name == "enter":
+                    with open("equpes.txt", "w") as arquivo:
+                        arquivo.write("")
+                    print("Lista limpa")
+                    input()
+                    break
+                elif key.name == "esc":
+                    print("Cancelando")
+                    break
+        time.sleep(3)
 
 
 def Menu():
