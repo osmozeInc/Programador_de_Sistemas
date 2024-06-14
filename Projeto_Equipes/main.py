@@ -86,7 +86,7 @@ class Students:
             for nome in file:
                 lista_equipes.append((nome).strip())
 
-            while len(lista_equipes) < 5:
+            for i in range(4):
                 remover_nomes = []
                 for nome in lista_equipes:
                     os.system('cls')
@@ -128,11 +128,11 @@ class Students:
                     try:
                         with open("equipes.txt", "w") as file:
                             for i, equipe in enumerate(self.equipes, start=1):
-                                file.write(f"\nEquipe {i}\n")
+                                file.write(f"Equipe {i}: \n")
                                 for nome in equipe:
-                                    file.write(f"{nome}")
+                                    file.write(f"     - {nome}\n")
                         print("Equipes salvas")
-                        input("\nPressione enter para continuar")
+                        input()
                     except IOError as e:
                         print(f"Erro ao salvar equipes: {e}")
                     break
@@ -159,9 +159,13 @@ class Students:
             key = keyboard.read_event()
             if key.event_type == "down":
                 if key.name == "enter":
-                    os.remove("equipes.txt")
-                    print("Lista limpa")
-                    input()
+                    try:
+                        os.remove("equipes.txt")
+                        print("Lista limpa")
+                        input()
+                    except FileNotFoundError:
+                        print("Não há equipes salvas")
+                        input()
                     break
                 elif key.name == "esc":
                     print("Cancelando")
@@ -196,5 +200,4 @@ students = Students()
 Menu()
 
 
-#limitar o programa a 4 equipes com o try
 #limitar o numero de participantes por equipe
