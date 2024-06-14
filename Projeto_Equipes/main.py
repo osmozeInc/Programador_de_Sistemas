@@ -225,6 +225,3 @@ def Menu():
 
 students = Students()
 Menu()
-
-
-#limitar o numero de participantes por equipe
