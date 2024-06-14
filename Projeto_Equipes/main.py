@@ -16,7 +16,7 @@ class Students:
             nome = input("Nome: ").strip().title()
             if nome == "": break
             self.lista_de_nomes.append(nome)
-        self.Savar_lista()
+        self.Salvar_lista()
     
     def Salvar_lista(self):
         os.system('cls')
@@ -62,8 +62,7 @@ class Students:
             key = keyboard.read_event()
             if key.event_type == "down":
                 if key.name == "enter":
-                    with open("nomes.txt", "w") as arquivo:
-                        arquivo.write("")
+                    os.remove("nomes.txt")
                     print("Lista limpa")
                     input()
                     break
@@ -76,57 +75,74 @@ class Students:
         print("Montando equipes\n")
         time.sleep(2)
 
+        if os.path.exists("equipes.txt"):
+            print("ja existem 4 equipes formadas\n"
+                    "limpe a lista de nomes e tente novamente")
+            input("\nPressione enter para continuar")
+            return
+        
         with open("nomes.txt", "r") as file:
             lista_equipes = []
             for nome in file:
                 lista_equipes.append((nome).strip())
-            i = 0
-            while i < 4:
-                j = 0
-                while j < 4:
-                    for nome in lista_equipes:
-                        os.system('cls')
-                        print(f"Adicionar {(nome)} a equipe {i+1}?"
-                            "\nenter - fechar equipe"
-                            "\n1 - sim"
-                            "\n2 - não")
-                        adicionar = input("--> ")
 
-                        if adicionar == "1":
-                            self.equipes[i].append(nome)
-                            lista_equipes.remove(nome)
-                            print(f"{nome} adicionado")
-                            time.sleep(1.2)
+            while len(lista_equipes) < 5:
+                remover_nomes = []
+                for nome in lista_equipes:
+                    os.system('cls')
 
-                        elif adicionar == "2":
-                            print(f"{nome} não adicionado")
-                            time.sleep(1.2)
+                    print(f"Adicionar {(nome)} a equipe {len(self.equipes)}?"
+                        "\nenter - fechar equipe"
+                        "\n1 - sim"
+                        "\n2 - não")
+                    adicionar = input("--> ")
 
-                        elif adicionar == "":
-                            self.equipes.append([])
-                            i += 1
-                            break
+                    if adicionar == "1":
+                        self.equipes[len(self.equipes)-1].append(nome)
+                        remover_nomes.append(nome)
+                        print(f"{nome} adicionado")
+                        time.sleep(1.2)
 
-                        else:
-                            print("Opção inválida")
-                            time.sleep(1.5)
+                    elif adicionar == "2":
+                        print(f"{nome} não adicionado")
+                        time.sleep(1.2)
+
+                    elif adicionar == "":
+                        self.equipes.append([])
+                        for remocao in remover_nomes:
+                            lista_equipes.remove(remocao)
+                        break
+
+                    else:
+                        print("Opção inválida")
+                        time.sleep(1.5)
 
         self.Salvar_equipes()
 
     def Salvar_equipes(self):
-        input("Salvar equipes? (enter) ou (esc)")
-        try:
-            with open("equipes.txt", "w") as file:
-                for i, equipe in enumerate(self.equipes, start=1):
-                    file.write(f"Equipe {i}")
-                    for nome in equipe:
-                        file.write(f"{nome}")
-            print("Equipes salvas")
-            input()
-        except IOError as e:
-            print(f"Erro ao salvar equipes: {e}")
+        print("Salvar equipes? (enter) ou (esc)")
+        while True:
+            key = keyboard.read_event()
+            if key.event_type == "down":
+                if key.name == "enter":
+                    try:
+                        with open("equipes.txt", "w") as file:
+                            for i, equipe in enumerate(self.equipes, start=1):
+                                file.write(f"\nEquipe {i}\n")
+                                for nome in equipe:
+                                    file.write(f"{nome}")
+                        print("Equipes salvas")
+                        input("\nPressione enter para continuar")
+                    except IOError as e:
+                        print(f"Erro ao salvar equipes: {e}")
+                    break
+                elif key.name == "esc":
+                    print("Cancelando")
+                    break
+        time.sleep(2)
 
     def Ver_equipes(self):
+        os.system('cls')
         try:
             with open("equipes.txt", "r") as file:
                 for equipe in file:
@@ -143,8 +159,7 @@ class Students:
             key = keyboard.read_event()
             if key.event_type == "down":
                 if key.name == "enter":
-                    with open("equpes.txt", "w") as arquivo:
-                        arquivo.write("")
+                    os.remove("equipes.txt")
                     print("Lista limpa")
                     input()
                     break
@@ -174,9 +189,7 @@ def Menu():
         elif opcao == "3": students.Limpar_lista()
         elif opcao == "4": students.Montar_equipes()
         elif opcao == "5": students.Ver_equipes()
-        
-
-    
+        elif opcao == "6": students.Limpar_equipes()
 
 
 students = Students()
