@@ -81,12 +81,24 @@ class Students:
             input("\nPressione enter para continuar")
             return
         
+        if not os.path.exists("nomes.txt"):
+            print("Não há nomes salvos")
+            input("\nPressione enter para continuar")
+            return
+        
         with open("nomes.txt", "r") as file:
             lista_equipes = []
             for nome in file:
                 lista_equipes.append((nome).strip())
 
-            for i in range(4):
+            while True:
+                try:
+                    numero_equipes = int(input("Quantas equipes deseja formar? "))
+                    break
+                except:
+                    print("Digite um número inteiro")
+
+            for i in range(numero_equipes):
                 remover_nomes = []
                 for nome in lista_equipes:
                     os.system('cls')
@@ -117,6 +129,21 @@ class Students:
                         print("Opção inválida")
                         time.sleep(1.5)
 
+                    if len(self.equipes[len(self.equipes)-1]) == 4:
+                        print("Equipe completa")
+                        if len(lista_equipes) >= 1: self.equipes.append([])
+                        for remocao in remover_nomes:
+                            lista_equipes.remove(remocao)
+                        time.sleep(1.5)
+                        break
+
+                    if len(self.equipes[len(self.equipes)-1]) == len(lista_equipes):
+                        print("Equipes fechadas")
+                        for remocao in remover_nomes:
+                            lista_equipes.remove(remocao)
+                        time.sleep(1.5)
+                        break
+
         self.Salvar_equipes()
 
     def Salvar_equipes(self):
@@ -128,9 +155,9 @@ class Students:
                     try:
                         with open("equipes.txt", "w") as file:
                             for i, equipe in enumerate(self.equipes, start=1):
-                                file.write(f"Equipe {i}: \n")
+                                file.write(f"\nEquipe {i}: ")
                                 for nome in equipe:
-                                    file.write(f"     - {nome}\n")
+                                    file.write(nome + ", ")
                         print("Equipes salvas")
                         input()
                     except IOError as e:
