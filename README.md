@@ -42,8 +42,6 @@ Carga horária: 36 horas
 
 **UC4: Projeto Integrador em Programador de Sistemas**  
 Carga horária: 20 horas  
-CH presencial - 8h  
-CH não presencial - 12h  
 
 >Ainda Não Desenvolvido 
 ***
