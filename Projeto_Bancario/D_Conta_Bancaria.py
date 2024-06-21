@@ -155,8 +155,6 @@ class Interface:
         while True:
             sys.stdout.flush()
             os.system('cls')
-            for char in self.cliente.usuario: 
-                while char != " ": self.primeiro_nome += char
             print("Bem vindo, " + self.primeiro_nome)
             print(f"\nSelecione uma opção"
                   f"\n----------------------"
@@ -193,11 +191,11 @@ class Interface:
 
     def Criar_usuario(self):
         self.setings.Alterar_nome()
-        self.setings.Alterar_CPF()
-        self.setings.Alterar_nascimento()
-        self.setings.Alterar_email()
-        self.setings.Alterar_celular()
-        self.setings.Alterar_senha()
+#        self.setings.Alterar_CPF()
+#        self.setings.Alterar_nascimento()
+#        self.setings.Alterar_email()
+#        self.setings.Alterar_celular()
+#        self.setings.Alterar_senha()
 
 
 
@@ -206,18 +204,24 @@ class Setings:
         self.cliente = cliente
         self.caractere_especial = "!@#$%&*()_-+={[}]|\:;'<>?,./"
         self.email_padrao = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+        self.interface = Interface(cliente)
 
     def Alterar_nome(self):
         while True:
             os.system('cls')
             sys.stdout.flush()
-            name = input("Nome: ")
+            name = input("Nome completo: ")
             if any(char in self.caractere_especial for char in name) or any(char.isnumeric() for char in name) or name == "":
                 print("Nome não pode conter caracteres especiais ou numeros")
                 time.sleep(3)
             else:
                 name = name.lower().title().strip()
                 self.cliente.usuario = name
+                break
+        for i in range(len(self.cliente.usuario)):
+            if self.cliente.usuario[i] == " ":
+                primeiro_nome = self.cliente.usuario[:i]
+                self.interface.primeiro_nome = primeiro_nome
                 break
 
     def Alterar_CPF(self):
