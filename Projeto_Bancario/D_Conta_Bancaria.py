@@ -323,12 +323,12 @@ os.system('cls')
 #
 # colocar mais critérios para o email ser aceito
 # colocar mais critérios para a senha ser aceita
-# adicionar seção para editar os dados
-#
+# adicionar seção para editar apenas os dados desejados
 #
 #
 # DEV IMPLEMENTAÇÃO:
 # adicionar o extrato
 # fazer um comprovante para cada saque e depósito
 # conseguir exportar dados e o extrato
+# criar login do usuário e para de permitir prosseguir anonimamente
 # salvar informações em um banco de dados e depois remover usuario em branco
