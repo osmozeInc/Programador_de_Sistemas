@@ -122,6 +122,7 @@ class Cliente:
             key = keyboard.read_event()
             if key.event_type == 'down':
                 if key.name == "enter":
+                    input()
                     break
                 if key.name == "esc":
                     self.interface.Criar_usuario()
@@ -245,23 +246,24 @@ class Setings:
     def Alterar_celular(self):
         while True:
             os.system('cls')
-            celular = input("Numero do celular \n+55 DDD: ")
-            if any(char in self.caractere_especial for char in celular) or any(char.isalpha() for char in celular) or len(celular)!= 2:
+            ddd = input("Numero do celular \n+55 DDD: ")
+            if any(char in self.caractere_especial for char in ddd) or any(char.isalpha() for char in ddd) or len(ddd)!= 2:
                 print("DDD invalido!")
                 time.sleep(3)
             else:
                 while True:
                     os.system('cls')
-                    celular += input(f"Numero do celular \n+55 ({celular}) 9")
-                    if any(char in self.caractere_especial for char in celular) or any(char.isalpha() for char in celular) or len(celular)!= 10:
+                    numero = input(f"Numero do celular \n+55 ({ddd}) 9")
+                    if any(char in self.caractere_especial for char in numero) or any(char.isalpha() for char in numero) or len(numero)!= 8:
                         print("Seu celular deve ter 8 numeros e nenhum caractere especial")
                         time.sleep(3)
                     else:
-                        self.cliente.celular = celular
+                        self.cliente.celular = ddd + numero
                         break
                 break
 
     def Alterar_senha(self):
+        erro = 1
         while True:
             os.system('cls')
             
@@ -271,12 +273,15 @@ class Setings:
             senha_2 = self.Seguranca_senha()
             if senha_1 != senha_2:
                 print("As senhas não coincidem!")
+                erro += 1
+                sys.stdout.flush()
                 time.sleep(3)
             else:
                 self.cliente.senha = senha_1
                 break
-        input()
-        input()
+        for i in range(erro):
+            input()
+            input()
         sys.stdout.flush()
 
     def Seguranca_senha(self):
