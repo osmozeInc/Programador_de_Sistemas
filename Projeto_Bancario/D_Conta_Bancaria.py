@@ -20,23 +20,26 @@ class Banco:
             "usuario": self.cliente.usuario,
             "tipo": tipo,
             "descricao": descricao,
+            "resumo": f"{tipo} de R$ {valor:.2f} Realizado."
         }
         self.historico.append(operacao)
         
-    def Comprovante_de_transacao(self):
-        print(f"\nDATA: {self.historico['data']}"
-              f"\nVALOR: R$: {self.historico['valor']}"
+    def Comprovante_de_transacao(self, escolha):
+        operacao = self.historico(int(escolha) - 1)
+        print(f"\nDATA: {operacao.get('data')}"
+              f"\nVALOR: R$: {operacao.get('valor')}"
               f"\n-----------------------------"
               f"\n"
-              f"\nTIPO DE OPERAÇÃO: {self.historico['tipo']}"
-              f"\nID: {self.historico['id']}"
+              f"\nTIPO DE OPERAÇÃO: {operacao.get('tipo')}"
+              f"\nID: {operacao.get('id')}"
               f"\n"
-              f"\nUSUÁRIO: {self.historico['usuario']}"
+              f"\nUSUÁRIO: {operacao.get('usuario')}"
               f"\n-----------------------------"
-              f"\nDESCRIÇÃO: \n{self.historico['descricao']}")
+              f"\nDESCRIÇÃO: \n{operacao.get('descricao')}")
 
     def Exibir_extrato(self):
-        pass
+        for i, registro in enumerate(self.historico, start=1):
+            print(f"{i}. {registro.get("resumo")}")
 
 
 
@@ -92,6 +95,8 @@ class Cliente:
                 if saque > 0 and saque <= self.saldo:
                     self.saldo -= saque
                     print(f"\nSaque de R$ {saque:.2f} realizado com sucesso!")
+                    descricao = input("Escreva uma descrição do deposito ou deixe vazia:\n")
+                    self.banco.Registro_de_operacao(saque, "saque", descricao)
                     break
                 if saque == 0:
                     print("\nSaque cancelado")
@@ -106,7 +111,17 @@ class Cliente:
         time.sleep(3)
 
     def Extrato(self):
-        pass
+        self.banco.Exibir_extrato()
+        while True:
+            try:
+                escolha = input("\n Pressione enter para voltar ou digite o numero da operação para ver detalhes \n--> ")
+                if escolha == "":
+                    break
+                else:
+                    self.banco.Comprovante_de_transacao(escolha)
+                    input()
+            except:
+                input("Entrada inválida! \nPressione enter para continuar")
 
     def Perfil(self):
         os.system('cls')
@@ -134,12 +149,15 @@ class Interface:
     def __init__(self, cliente):
         self.cliente = cliente
         self.setings = Setings(cliente)
+        self.primeiro_nome = ""
 
     def Menu(self):
         while True:
             sys.stdout.flush()
             os.system('cls')
-            print("Bem vindo, " + self.cliente.usuario)
+            for char in self.cliente.usuario: 
+                while char != " ": self.primeiro_nome += char
+            print("Bem vindo, " + self.primeiro_nome)
             print(f"\nSelecione uma opção"
                   f"\n----------------------"
                   f"\n1 - Realizar deposito"
@@ -307,6 +325,7 @@ os.system('cls')
 cliente = Cliente()
 interface = Interface(cliente)
 settings = Setings(cliente)
+banco = Banco(cliente)
 
 print("Iniciando Sistema Bancário")
 time.sleep(2)
