@@ -1,0 +1,264 @@
+ScreenManager:
+    id: screen_manager
+    Screen_Cadastro:
+        name: "cadastro"
+    Screen_Login:
+        name: "login"
+
+<SpinnerOption>:
+    size_hint_y: None
+    text_size: self.size
+    valign: 'center'
+    halign: 'center'
+    color: 0, 0, 0, 1
+    background_normal: ''
+    
+
+#
+<Screen_Login>:
+    name: "login"
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: 0.8, 0.8, 0.8, 1
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        #
+        Label:
+            text: "FAÇA SEU LOGIN"
+            font_size: 30
+            pos_hint: {'center_x':.5, 'center_y':.9}
+            size_hint: None, None
+            bold: True
+            color: 0, 0, 0, 1
+
+        Label:
+            text: "Digite seu CPF"
+            font_size: 20
+            pos_hint: {'center_x':.5, 'center_y':.71}
+            color: 0, 0, 0, 1
+
+        Label:
+            text: "digite somente os números"
+            font_size: 15
+            pos_hint: {'center_x':.5, 'center_y':.68}
+            color: 0.6, 0.6, 0.6, 1
+        
+        TextInput:
+            id: funcionario_cpf
+            size_hint: None, None
+            size: 200, 40
+            pos_hint: {'center_x': 0.5, 'center_y': 0.63}
+
+        Label:
+            text: "Digite sua senha"
+            font_size: 20
+            pos_hint: {'center_x':.5, 'center_y':.56}
+            color: 0, 0, 0, 1
+        
+        TextInput:
+            id: funcionario_senha
+            size_hint: None, None
+            size: 200, 40
+            pos_hint: {'center_x': 0.5, 'center_y': 0.49}
+
+        Label:
+            text: "Qual seu departamento?"
+            font_size: 20
+            pos_hint: {'center_x':.5, 'center_y':.42}
+            color: 0, 0, 0, 1
+
+        #
+        Spinner:
+            id: funcionario_departamento
+            text: 'Escolha uma opção'
+            values: ['Entrega', 'Cozinha', 'Atendimento', 'Administração', 'Estoque', 'Auxiliar']
+            size_hint: None, None
+            size: 220, 40
+            background_color: 1, 1, 1, 1
+            background_normal: ''
+            pos_hint: {'center_x': 0.5, 'center_y': 0.35}
+            font_size: 20
+            color: 0, 0, 0, 1
+        #
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint: None, None
+            size: self.minimum_size
+            pos_hint: {'center_x': 0.5, 'center_y': 0.25}
+            spacing: 20
+
+            Button:
+                text: "Cadastrar"
+                size_hint: None, None
+                size: 100, 40
+                font_size: 20
+                background_color: 0.5, 0.5, 0.5, 1
+                on_release: app.root.current = 'cadastro'
+
+            Button:
+                text: "Entrar"
+                size_hint: None, None
+                size: 100, 40
+                font_size: 20
+                background_color: 0.2, 0.8, 0.2, 1
+                on_release: root.get_input_login(funcionario_cpf.text, funcionario_senha.text, funcionario_departamento.text)
+
+#
+<Screen_Cadastro>:
+    name: "cadastro"
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: 0.8, 0.8, 0.8, 1
+            Rectangle:
+                size: self.size
+        #
+        Label:
+            text: "CADASTRO"
+            font_size: 30
+            pos_hint: {'center_x':.5, 'center_y':.9}
+            size_hint: None, None
+            bold: True
+            color: 0, 0, 0, 1
+        #
+        Label:
+            text: "Nome:"
+            font_size: 20
+            halign: 'left'
+            size_hint: None, None
+            size: self.texture_size
+            pos_hint: {'x':.2, 'y':.76}
+            color: 0, 0, 0, 1
+        #
+        TextInput:
+            id: funcionario_nome
+            size_hint: None, None
+            size: 250, 40
+            halign: 'left'
+            pos_hint: {'x':.2, 'y':.7}
+            color: 0, 0, 0, 1
+        #
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint: None, None
+            size: self.minimum_size
+            halign: 'left'
+            pos_hint: {'x': 0.2, 'y': 0.62}
+            spacing: 15
+
+            Label:
+                text: "CPF:"
+                font_size: 20
+                color: 0, 0, 0, 1
+                size_hint_x: None                       # Define que o tamanho em X não é relativo
+                width: self.texture_size[0]             # Define a largura com base no tamanho do texto
+            Label:
+                text: "DIGITE SÓ OS NÚMEROS"
+                font_size: 15
+                color: 0.6, 0.6, 0.6, 1
+                size_hint_x: None                       # Define que o tamanho em X não é relativo
+                width: self.texture_size[0]             # Define a largura com base no tamanho do texto
+        #
+        TextInput:
+            id: funcionario_cpf
+            size_hint: None, None
+            size: 250, 40
+            halign: 'left'
+            pos_hint: {'x':.2, 'y':.54}
+            color: 0, 0, 0, 1
+        #
+        Label:
+            text: "DDD/Celular:"
+            font_size: 20
+            halign: 'left'
+            size_hint: None, None
+            size: self.texture_size
+            pos_hint: {'x':.2, 'y':.44}
+            color: 0, 0, 0, 1
+        #
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint: None, None
+            size: self.minimum_size
+            halign: 'left'
+            pos_hint: {'x': 0.2, 'y':.38}
+            spacing: 5
+
+            TextInput:
+                id: funcionario_ddd
+                size_hint: None, None
+                size: 50, 40
+                color: 0, 0, 0, 1
+                size_hint_x: None
+                width: self.size[0]
+                text: "( )"
+                font_color: 0.6, 0.6, 0.6, 1
+            
+            TextInput:
+                id: funcionario_celular
+                size_hint: None, None
+                size: 120, 40
+                halign: 'left'
+                color: 0, 0, 0, 1
+                size_hint_x: None
+                width: self.size[0]
+                text: "9____-____"
+                font_color: 0.6, 0.6, 0.6, 1
+        #
+        Label:
+            text: "E-mail:"
+            font_size: 20
+            halign: 'left'
+            size_hint: None, None
+            size: self.texture_size
+            pos_hint: {'x':.2, 'y':.28}
+            color: 0, 0, 0, 1
+        #
+        TextInput:
+            id: funcionario_email
+            size_hint: None, None
+            size: 250, 40
+            halign: 'left'
+            pos_hint: {'x':.2, 'y':.22}
+            color: 0, 0, 0, 1
+        #
+        Label:
+            text: "Departamento:"
+            font_size: 20
+            halign: 'left'
+            size_hint: None, None
+            size: self.texture_size
+            pos_hint: {'x':.6, 'y':.76}
+            color: 0, 0, 0, 1
+        #
+        Spinner:
+            id: departamento
+            text: 'Escolha uma opção'
+            values: ['Entrega', 'Cozinha', 'Atendimento', 'Administração', 'Estoque', 'Auxiliar']
+            size_hint: None, None
+            size: 250, 40
+            background_normal: '1, 1, 1, 1'
+            background_color: 1, 1, 1, 1
+            border: (0, 0, 1, 0)
+            halign: 'left'
+            pos_hint: {'x':.6, 'y':.7}
+            font_size: 20
+            color: 0, 0, 0, 1
+        #
+        Spinner:
+            id: funcionario_cargo
+            text: 'Escolha uma opção'
+            size_hint: None, None
+            size: 250, 40
+            background_normal: '1, 1, 1, 1'
+            background_color: 1, 1, 1, 1
+            border: (0, 0, 1, 0)
+            halign: 'left'
+            pos_hint: {'x':.6, 'y':.7}
+            font_size: 20
+            color: 0, 0, 0, 1
+
+
+
