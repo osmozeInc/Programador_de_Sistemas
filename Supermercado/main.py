@@ -9,33 +9,47 @@ from kivy.uix.spinner import Spinner, SpinnerOption
 from kivy.core.window import Window
 
 
+class Banco_de_Dados:
+    def __init__(self):
+        self.conexao = sqlite3.connect('Supermercado.db')
+        self.cursor = self.conexao.cursor()
+
+    def Cadastro_db(self, nome, cpf, numero, email, departamento, função, senha):
+        pass
+
 class Screen_Login(Screen):        
     def get_input_login(self, cpf, senha, departamento):
         pass   
         
-class Screen_Cadastro(Screen):
+class Screen_Cadastro(Screen, Banco_de_Dados):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.ids.departamento.bind(text=self.spinner_funcao)
-
-    def spinner_funcao(self, instance, value):
-        if value == 'Entrega':
-            self.funcao.values = ['Entregador']
-        elif value == 'Cozinha':
-            self.funcao.values = ['Açougueiro', 'Padeiro', 'Peixero', 'Cozinheiro', 'Sommelier de vinhos']
-        elif value == 'Atendimento':
-            self.funcao.values = ['Operador de caixa', 'Empacotador']
-        elif value == 'Estoque':
-            self.funcao.values = ['Repositor', 'Estoquista']
-        elif value == 'Administração':
-            self.funcao.values = ['Gerente', 'Auxiliar administrativo']
-        elif value == 'Auxiliar':
-            self.funcao.values = ['Segurança,', 'Limpeza']
-        else:
-            self.funcao.values = []
-
-    def get_input_cadastro(self, nome, cpf, numero, email, departamento, função, senha):
+        banco = Banco_de_Dados()
+    
+    def informacoes_de_cadastro(self, nome, cpf, ddd, numero, email, departamento, função, senha, ConfirmSenha):
         pass
+
+    def spinner_funcao(self, departamento, value):
+        if value == 'Entrega':
+            self.ids.cargo.values = ('Entregador',)
+        elif value == 'Cozinha':
+            self.ids.cargo.values = ('Açougueiro', 'Padeiro', 'Peixero', 'Cozinheiro', 'Sommelier de vinhos')
+        elif value == 'Atendimento':
+            self.ids.cargo.values = ('Operador de caixa', 'Empacotador')
+        elif value == 'Estoque':
+            self.ids.cargo.values = ('Repositor', 'Estoquista')
+        elif value == 'Administração':
+            self.ids.cargo.values = ('Gerente', 'Auxiliar administrativo')
+        elif value == 'Auxiliar':
+            self.ids.cargo.values = ('Segurança,', 'Limpeza')
+        else:
+            self.ids.cargo.values = ()
+
+
+class Screen_Gerencia(Screen):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
 
 class Supermercado(App):
     def build(self):
@@ -43,7 +57,8 @@ class Supermercado(App):
         sm = ScreenManager()
         sm.add_widget(Screen_Login(name='login'))
         sm.add_widget(Screen_Cadastro(name='cadastro'))
+        sm.add_widget(Screen_Gerencia(name='gerencia'))
         return Builder.load_file('Tela.kv')
 
-
+banco = Banco_de_Dados()
 Supermercado().run()
