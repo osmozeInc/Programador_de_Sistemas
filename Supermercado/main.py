@@ -7,6 +7,7 @@ from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.spinner import Spinner, SpinnerOption
 from kivy.core.window import Window
+from Kivi_python import Dados
 
 
 class Banco_de_Dados:
@@ -14,13 +15,26 @@ class Banco_de_Dados:
         self.conexao = sqlite3.connect('Supermercado.db')
         self.cursor = self.conexao.cursor()
 
+    def Criar_tabelas(self):
+        pass
+
     def Cadastro_db(self, nome, cpf, numero, email, departamento, função, senha):
         pass
+
+class Supermercado(App):
+    def build(self):
+        Window.size = (1280, 720)
+        sm = ScreenManager()
+        sm.add_widget(Screen_Login(name='login'))
+        sm.add_widget(Screen_Cadastro(name='cadastro'))
+        return Builder.load_file('Tela.kv')
+
 
 class Screen_Login(Screen):        
     def get_input_login(self, cpf, senha, departamento):
         pass   
         
+
 class Screen_Cadastro(Screen, Banco_de_Dados):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -46,19 +60,9 @@ class Screen_Cadastro(Screen, Banco_de_Dados):
             self.ids.cargo.values = ()
 
 
-class Screen_Gerencia(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-
-class Supermercado(App):
-    def build(self):
-        Window.size = (1280, 720)
-        sm = ScreenManager()
-        sm.add_widget(Screen_Login(name='login'))
-        sm.add_widget(Screen_Cadastro(name='cadastro'))
-        sm.add_widget(Screen_Gerencia(name='gerencia'))
-        return Builder.load_file('Tela.kv')
 
 banco = Banco_de_Dados()
 Supermercado().run()
