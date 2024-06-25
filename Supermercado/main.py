@@ -7,7 +7,7 @@ from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.spinner import Spinner, SpinnerOption
 from kivy.core.window import Window
-from Kivi_python import Dados
+import Verificar_dados
 
 
 class Banco_de_Dados:
