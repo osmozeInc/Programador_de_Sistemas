@@ -2,8 +2,6 @@ ScreenManager:
     id: screen_manager
     Screen_Login:
         name: "login"
-    Screen_Gerencia:
-        name: "gerencia"
     Screen_Cadastro:
         name: "cadastro"
 
@@ -96,6 +94,7 @@ ScreenManager:
                 size: 100, 40
                 font_size: 20
                 background_color: 0.5, 0.5, 0.5, 1
+                on_press: root.manager.transition.direction = 'right'
                 on_release: app.root.current = 'cadastro'
 
             Button:
@@ -105,11 +104,7 @@ ScreenManager:
                 font_size: 20
                 background_color: 0.2, 0.8, 0.2, 1
                 on_release: root.get_input_login(funcionario_cpf.text, funcionario_senha.text, funcionario_departamento.text)
-#
-<Screen_Gerencia>
-    name: "gerencia"
-    Label:
-        text: "a"
+
 #
 <Screen_Cadastro>:
     name: "cadastro"
@@ -144,6 +139,16 @@ ScreenManager:
             halign: 'left'
             pos_hint: {'x':.2, 'y':.7}
             color: 0, 0, 0, 1
+        #
+        Label:
+            id: nome_cad_error
+            text: ""
+            font_size: 15
+            halign: 'left'
+            size_hint: None, None
+            size: self.texture_size
+            pos_hint: {'x':.2, 'y':.66}
+            color: 0.5, 0, 0, 1
         #
         BoxLayout:
             orientation: "horizontal"
@@ -322,6 +327,7 @@ ScreenManager:
                 size: 200, 50
                 font_size: 18
                 background_color: 0.5, 0.5, 0.5, 1
+                on_press: root.manager.transition.direction = 'left'
                 on_release: app.root.current = 'login'
 
             Button:
