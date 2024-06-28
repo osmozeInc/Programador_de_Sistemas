@@ -42,28 +42,26 @@ class Screen_Cadastro(Screen, Banco_de_Dados):
         banco = Banco_de_Dados()
     
     def informacoes_de_cadastro(self, nome, cpf, ddd, numero, email, departamento, função, senha, ConfirmSenha):
-        Verific = []
-        Verific[0], nome_db = Dados.Dados_de_cadastro.VerificNome(nome)
-        if Verific == 'Erro': self.ids.nome_cad_error.text = 'Nome inválido'
-        Verific[1], cpf_db = Dados.Dados_de_cadastro.VerificCPF(cpf)
-        if Verific == 'Erro': self.ids.cpf_cad_error.text = 'CPF inválido'
-        Verific[2], ddd_db = Dados.Dados_de_cadastro.VerificDDD(ddd)
-        if Verific == 'Erro': self.ids.ddd_cad_error.text = 'DDD inválido'
-        Verific[3], numero_db = Dados.Dados_de_cadastro.VerificNumero(numero)
-        if Verific == 'Erro': self.ids.numero_cad_error.text = 'Número inválido'
-        Verific[4], email_db = Dados.Dados_de_cadastro.VerificEmail(email)
-        if Verific == 'Erro': self.ids.email_cad_error.text = 'Email inválido'
-        Verific[5], departamento_db = Dados.Dados_de_cadastro.VerificDepartamento(departamento)
-        if Verific == 'Erro': self.ids.departamento_cad_error.text = 'Departamento inválido'
-        Verific[6], função_db = Dados.Dados_de_cadastro.VerificCargo(função)
-        if Verific == 'Erro': self.ids.cargo_cad_error.text = 'Função inválida'
-        Verific[7], senha_db = Dados.Dados_de_cadastro.VerificSenha(senha)
-        if Verific == 'Erro': self.ids.senha_cad_error.text = 'Senha inválida'
-        Verific[8], ConfirmSenha_db = Dados.Dados_de_cadastro.VerificConfirmSenha(ConfirmSenha)
-        if Verific == 'Erro': self.ids.ConfirmSenha_cad_error.text = 'Confirmar senha inválida'
+        Verific = [" ", " ", " ", " ", " ", " ", " ", " "]
+        Verific[0], nome_db = dados.Dados_de_cadastro.VerificNome(nome)
+        if Verific[0] != ' ': self.ids.nome_cad_error.text = Verific[0]
+        Verific[1], cpf_db = dados.Dados_de_cadastro.VerificCPF(cpf)
+        if Verific[1] != ' ': self.ids.cpf_cad_error.text = Verific[1]
+        Verific[2], ddd_db, numero_db = dados.Dados_de_cadastro.VerificDDDNumero(ddd, numero)
+        if Verific[2] != ' ': self.ids.DDDnumero_cad_error.text = Verific[2]
+        Verific[3], email_db = dados.Dados_de_cadastro.VerificEmail(email)
+        if Verific[3] != ' ': self.ids.email_cad_error.text = Verific[3]
+        Verific[4], departamento_db = dados.Dados_de_cadastro.VerificDepartamento(departamento)
+        if Verific[4] != ' ': self.ids.departamento_cad_error.text = Verific[4]
+        Verific[5], função_db = dados.Dados_de_cadastro.VerificCargo(função)
+        if Verific[5] != ' ': self.ids.cargo_cad_error.text = Verific[5]
+        '''Verific[7], senha_db = dados.Dados_de_cadastro.VerificSenha(senha)
+        if Verific[7] != 'ok': self.ids.senha_cad_error.text = Verific[7]
+        Verific[8], ConfirmSenha_db = dados.Dados_de_cadastro.VerificConfirmSenha(ConfirmSenha)
+        if Verific[8] != 'ok': self.ids.ConfirmSenha_cad_error.text = Verific[8]'''
 
         for verific in Verific:
-            if verific == 'Erro':
+            if verific != 'Erro':
                 pass
 
     
