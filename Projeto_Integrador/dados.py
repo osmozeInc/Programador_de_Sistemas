@@ -38,7 +38,7 @@ class Dados_de_cadastro:
             elif any(char in "!@#$%&*()_-+={[}]|\:;'<>?,./" for char in numero) or any(char.isalpha() for char in numero) or len(numero)!= 9:
                 return "Numero invalido!", ddd, numero
             else:
-                return 'ok', ddd, numero
+                return ' ', ddd, numero
         except AttributeError:
             return 'Erro', numero
 

@@ -44,17 +44,17 @@ class Screen_Cadastro(Screen, Banco_de_Dados):
     def informacoes_de_cadastro(self, nome, cpf, ddd, numero, email, departamento, função, senha, ConfirmSenha):
         Verific = [" ", " ", " ", " ", " ", " ", " ", " "]
         Verific[0], nome_db = dados.Dados_de_cadastro.VerificNome(nome)
-        if Verific[0] != ' ': self.ids.nome_cad_error.text = Verific[0]
+        self.ids.nome_cad_error.text = Verific[0]
         Verific[1], cpf_db = dados.Dados_de_cadastro.VerificCPF(cpf)
-        if Verific[1] != ' ': self.ids.cpf_cad_error.text = Verific[1]
+        self.ids.cpf_cad_error.text = Verific[1]
         Verific[2], ddd_db, numero_db = dados.Dados_de_cadastro.VerificDDDNumero(ddd, numero)
-        if Verific[2] != ' ': self.ids.DDDnumero_cad_error.text = Verific[2]
+        self.ids.DDDnumero_cad_error.text = Verific[2]
         Verific[3], email_db = dados.Dados_de_cadastro.VerificEmail(email)
-        if Verific[3] != ' ': self.ids.email_cad_error.text = Verific[3]
+        self.ids.email_cad_error.text = Verific[3]
         Verific[4], departamento_db = dados.Dados_de_cadastro.VerificDepartamento(departamento)
-        if Verific[4] != ' ': self.ids.departamento_cad_error.text = Verific[4]
+        self.ids.departamento_cad_error.text = Verific[4]
         Verific[5], função_db = dados.Dados_de_cadastro.VerificCargo(função)
-        if Verific[5] != ' ': self.ids.cargo_cad_error.text = Verific[5]
+        self.ids.cargo_cad_error.text = Verific[5]
         '''Verific[7], senha_db = dados.Dados_de_cadastro.VerificSenha(senha)
         if Verific[7] != 'ok': self.ids.senha_cad_error.text = Verific[7]
         Verific[8], ConfirmSenha_db = dados.Dados_de_cadastro.VerificConfirmSenha(ConfirmSenha)
