@@ -147,7 +147,7 @@ ScreenManager:
             halign: 'left'
             size_hint: None, None
             size: self.texture_size
-            pos_hint: {'x':.2, 'y':.66}
+            pos_hint: {'x':.2, 'y':.67}
             color: 0.5, 0, 0, 1
         #
         BoxLayout:
@@ -180,6 +180,16 @@ ScreenManager:
             color: 0, 0, 0, 1
         #
         Label:
+            id: cpf_cad_error
+            text: ""
+            font_size: 15
+            halign: 'left'
+            size_hint: None, None
+            size: self.texture_size
+            pos_hint: {'x':.2, 'y':.51}
+            color: 0.5, 0, 0, 1
+        #
+        Label:
             text: "DDD/Celular:"
             font_size: 20
             halign: 'left'
@@ -203,7 +213,7 @@ ScreenManager:
                 color: 0, 0, 0, 1
                 size_hint_x: None
                 width: self.size[0]
-                text: "( )"
+                text: ""
                 font_color: 0.6, 0.6, 0.6, 1
             
             TextInput:
@@ -214,8 +224,18 @@ ScreenManager:
                 color: 0, 0, 0, 1
                 size_hint_x: None
                 width: self.size[0]
-                text: "9    -"
+                text: ""
                 font_color: 0.6, 0.6, 0.6, 1
+        #
+        Label:
+            id: DDDnumero_cad_error
+            text: ""
+            font_size: 15
+            halign: 'left'
+            size_hint: None, None
+            size: self.texture_size
+            pos_hint: {'x':.2, 'y':.35}
+            color: 0.5, 0, 0, 1
         #
         Label:
             text: "E-mail:"
@@ -235,6 +255,16 @@ ScreenManager:
             color: 0, 0, 0, 1
         #
         Label:
+            id: email_cad_error
+            text: ""
+            font_size: 15
+            halign: 'left'
+            size_hint: None, None
+            size: self.texture_size
+            pos_hint: {'x':.2, 'y':.19}
+            color: 0.5, 0, 0, 1
+        #
+        Label:
             text: "Departamento:"
             font_size: 20
             halign: 'left'
@@ -245,7 +275,7 @@ ScreenManager:
         #
         Spinner:
             id: departamento_cad
-            text: 'Escolha uma opção'
+            text: 'Selecione o departamento'
             values: ['Entrega', 'Cozinha', 'Atendimento', 'Administração', 'Estoque', 'Auxiliar']
             size_hint: None, None
             size: 250, 40
@@ -254,9 +284,19 @@ ScreenManager:
             border: (0, 0, 1, 0)
             halign: 'left'
             pos_hint: {'x':.6, 'y':.7}
-            font_size: 20
+            font_size: 17
             color: 0, 0, 0, 1
             on_text: root.spinner_funcao(self, self.text)
+        #
+        Label:
+            id: departamento_cad_error
+            text: ""
+            font_size: 15
+            halign: 'left'
+            size_hint: None, None
+            size: self.texture_size
+            pos_hint: {'x':.6, 'y':.67}
+            color: 0.5, 0, 0, 1
         #
         Label:
             text: "Cargo:"
@@ -269,7 +309,7 @@ ScreenManager:
         #
         Spinner:
             id: cargo_cad
-            text: 'Escolha uma opção'
+            text: 'Selecione o cargo'
             size_hint: None, None
             size: 250, 40
             background_normal: '1, 1, 1, 1'
@@ -277,8 +317,18 @@ ScreenManager:
             border: (0, 0, 1, 0)
             halign: 'left'
             pos_hint: {'x':.6, 'y':.54}
-            font_size: 20
+            font_size: 17
             color: 0, 0, 0, 1
+        #
+        Label:
+            id: cargo_cad_error
+            text: ""
+            font_size: 15
+            halign: 'left'
+            size_hint: None, None
+            size: self.texture_size
+            pos_hint: {'x':.6, 'y':.51}
+            color: 0.5, 0, 0, 1
         #
         Label:
             text: "Senha:"
