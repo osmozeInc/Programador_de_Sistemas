@@ -4,7 +4,19 @@ ScreenManager:
         name: "login"
     Screen_Cadastro:
         name: "cadastro"
-
+    Screen_Menu_Entrega
+        name: "Entrega"
+    Screen_Menu_Cozinha
+        name: "Cozinha"
+    Screen_Menu_Atendimento
+        name: "Atendimento"
+    Screen_Menu_Estoque
+        name: "Estoque"
+    Screen_Menu_Administracao
+        name: "Administração"
+    Screen_Menu_Auxiliar
+        name: "Auxiliar" 
+#
 <SpinnerOption>:
     size_hint_y: None
     text_size: self.size
@@ -34,58 +46,85 @@ ScreenManager:
             color: 0, 0, 0, 1
         #
         Label:
-            text: "Digite seu CPF"
-            font_size: 20
-            pos_hint: {'center_x':.5, 'center_y':.71}
-            color: 0, 0, 0, 1
+            id: verificacao_log_error
+            text: ""
+            font_size: 18
+            halign: 'center'
+            size_hint: None, None
+            size: self.texture_size
+            pos_hint: {'center_x':.5, 'center_y':.85}
+            color: 0.5, 0, 0, 1
         #
         Label:
-            text: "digite somente os números"
-            font_size: 15
-            pos_hint: {'center_x':.5, 'center_y':.68}
-            color: 0.6, 0.6, 0.6, 1
+            text: "Digite seu CPF"
+            font_size: 20
+            pos_hint: {'center_x':.5, 'center_y':.73}
+            color: 0, 0, 0, 1
         #
         TextInput:
-            id: funcionario_cpf
+            id: cpf_log
+            hint_text: 'digite somente os números'
             size_hint: None, None
             size: 200, 40
-            pos_hint: {'center_x': 0.5, 'center_y': 0.63}
+            pos_hint: {'center_x': 0.5, 'center_y': 0.67}
+        #
+        Label:
+            id: cpf_log_error
+            text: ""
+            font_size: 15
+            pos_hint: {'center_x':.48, 'center_y':.63}
+            color: 0.5, 0, 0, 1
         #
         Label:
             text: "Digite sua senha"
             font_size: 20
-            pos_hint: {'center_x':.5, 'center_y':.56}
+            pos_hint: {'center_x':.5, 'center_y':.57}
             color: 0, 0, 0, 1
         #
         TextInput:
-            id: funcionario_senha
+            id: senha_log
             size_hint: None, None
             size: 200, 40
-            pos_hint: {'center_x': 0.5, 'center_y': 0.49}
+            pos_hint: {'center_x': 0.5, 'center_y': 0.51}
         #
         Label:
-            text: "Qual seu departamento?"
+            id: senha_log_error
+            text: ""
+            font_size: 15
+            pos_hint: {'center_x':.48, 'center_y':.47}
+            color: 0.5, 0, 0, 1
+        #
+        Label:
+            text: "Departamento"
             font_size: 20
-            pos_hint: {'center_x':.5, 'center_y':.42}
+            pos_hint: {'center_x':.5, 'center_y':.41}
             color: 0, 0, 0, 1
+
         #
         Spinner:
-            id: departamento_login
-            text: 'Escolha uma opção'
+            id: departamento_log
+            text: 'Selecione o departamento'
             values: ['Entrega', 'Cozinha', 'Atendimento', 'Administração', 'Estoque', 'Auxiliar']
             size_hint: None, None
-            size: 220, 40
+            size: 200, 40
             background_color: 1, 1, 1, 1
             background_normal: ''
             pos_hint: {'center_x': 0.5, 'center_y': 0.35}
-            font_size: 20
+            font_size: 15
             color: 0, 0, 0, 1
+        #
+        Label:
+            id: departamento_log_error
+            text: ""
+            font_size: 15
+            pos_hint: {'center_x':.48, 'center_y':.305}
+            color: 0.5, 0, 0, 1
         #
         BoxLayout:
             orientation: "horizontal"
             size_hint: None, None
             size: self.minimum_size
-            pos_hint: {'center_x': 0.5, 'center_y': 0.25}
+            pos_hint: {'center_x': 0.5, 'center_y': 0.205}
             spacing: 20
 
             Button:
@@ -103,8 +142,7 @@ ScreenManager:
                 size: 100, 40
                 font_size: 20
                 background_color: 0.2, 0.8, 0.2, 1
-                on_release: root.get_input_login(funcionario_cpf.text, funcionario_senha.text, funcionario_departamento.text)
-
+                on_release: root.informacoes_de_login(cpf_log.text, senha_log.text, departamento_log.text)
 #
 <Screen_Cadastro>:
     name: "cadastro"
@@ -340,12 +378,22 @@ ScreenManager:
             color: 0, 0, 0, 1
         #
         TextInput:
-            id: Senha_cad
+            id: senha_cad
             size_hint: None, None
             size: 250, 40
             halign: 'left'
             pos_hint: {'x':.6, 'y':.38}
             color: 0, 0, 0, 1
+        #
+        Label:
+            id: senha_cad_error
+            text: ""
+            font_size: 15
+            halign: 'left'
+            size_hint: None, None
+            size: self.texture_size
+            pos_hint: {'x':.6, 'y':.35}
+            color: 0.5, 0, 0, 1
         #
         Label:
             text: "Confirme a senha:"
@@ -357,12 +405,30 @@ ScreenManager:
             color: 0, 0, 0, 1
         #
         TextInput:
-            id: ConfirmSenha_cad
+            id: confirmSenha_cad
             size_hint: None, None
             size: 250, 40
             halign: 'left'
             pos_hint: {'x':.6, 'y':.22}
             color: 0, 0, 0, 1
+        #
+        Label:
+            id: confirmSenha_cad_error
+            text: ""
+            font_size: 15
+            halign: 'left'
+            size_hint: None, None
+            size: self.texture_size
+            pos_hint: {'x':.6, 'y':.19}
+            color: 0.5, 0, 0, 1
+        #
+        Label:
+            id: verificacao_cad_error
+            text: ""
+            bold: True
+            font_size: 22
+            pos_hint: {'center_x': 0.5, 'center_y': 0.1}
+            color: 0, 0.6, 0, 1
         #
         BoxLayout:
             orientation: "horizontal"
@@ -386,4 +452,38 @@ ScreenManager:
                 size: 200, 50
                 font_size: 18
                 background_color: 0.2, 0.8, 0.2, 1
-                on_release: root.informacoes_de_cadastro(nome_cad.text, cpf_cad.text, ddd_cad.text, numero_cad.text, email_cad.text, departamento_cad.text, cargo_cad.text, Senha_cad.text, ConfirmSenha_cad.text)
+                on_release: root.informacoes_de_cadastro(nome_cad.text, cpf_cad.text, ddd_cad.text, numero_cad.text, email_cad.text, departamento_cad.text, cargo_cad.text, senha_cad.text, confirmSenha_cad.text)
+#
+<Screen_Menu_Entrega>
+    name: "Entrega"
+#
+<Screen_Menu_Cozinha>
+    name: "Cozinha"
+#
+<Screen_Menu_Atendimento>
+    name: "Atendimento"
+#
+<Screen_Menu_Estoque>
+    name: "Estoque"
+#
+<Screen_Menu_Administracao>
+    name: "Administração"
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: 0.8, 0.8, 0.8, 1
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        #
+        Label:
+            text: "Administração"
+            font_size: 30
+            pos_hint: {'center_x':.5, 'center_y':.9}
+            size_hint: None, None
+            bold: True
+            color: 0, 0, 0, 1
+
+#
+<Screen_Menu_Auxiliar>
+    name: "Auxiliar"
