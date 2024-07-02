@@ -2,7 +2,7 @@
 **Carga Horária:** 200 horas  
 **Modalidade:** Presencial  
 **Ínicio:** 02/05/2024  
-**Fim:**  
+**Fim:** 11/07/2024
 **Linguagem de Programação:** Python
   
 ---
