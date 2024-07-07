@@ -12,19 +12,24 @@ cursor.execute( '''
     ddd TEXT,
     numero TEXT,
     email TEXT,
+    data TEXT,
     CEP TEXT,
+    rua TEXT,
     Ncasa TEXT,
     senha TEXT)
                 ''' )
 
 
-def Cadastro_db(nome, cpf, ddd, numero, email, CEP, Ncasa, senha):
-    cursor.execute("INSERT INTO cliente (nome, cpf, ddd, numero, email, CEP, Ncasa, senha) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", (nome, cpf, ddd, numero, email, CEP, Ncasa, senha))
+def Cadastro_db(nome, cpf, ddd, numero, email, data, CEP, rua, Ncasa, senha):
+    cursor.execute("INSERT INTO cliente (nome, cpf, ddd, numero, email, data, CEP, rua, Ncasa, senha) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (nome, cpf, ddd, numero, email, data, CEP, rua, Ncasa, senha))
     conexao.commit()
     print('Cadastro realizado com sucesso!')
 
 
 def Login_db(cpf, senha):
+    if not cpf or not senha:
+        return False
+    
     cursor.execute("SELECT * FROM cliente WHERE cpf =? AND senha =?", (cpf, senha))
     result = cursor.fetchall()
     if result:

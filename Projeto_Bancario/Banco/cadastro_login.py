@@ -44,6 +44,15 @@ def VerificEmail(email):
         return 'Email inválido', email
     else:
         return ' ', email
+    
+def VerificData(data):
+        data = data.strip().lower().title()
+        if not data:
+            return 'Preencha esse campo', data
+        elif len(data) != 10 or data.isalpha() or not data[2] == '/' or not data[5] == '/':
+            return 'Data inválida', data
+        else:
+            return ' ', data[0:1] + data[3:4] + data[6:]
 
 def VerificCEP(CEP):
     if not CEP:
@@ -52,6 +61,14 @@ def VerificCEP(CEP):
         return 'CEP inválido', CEP
     else:
         return ' ', CEP
+    
+def VerificRua(rua):
+    if not rua:
+        return 'Preencha esse campo', rua
+    elif any(char in "!@#$%&*()_-+={[}]|\:;'<>?,./" for char in rua) or len(rua) < 3:
+        return 'Rua inválida', rua[4:]
+    else:
+        return ' ', rua
 
 def VerificNcasa(Ncasa):
     if not Ncasa:
@@ -65,7 +82,7 @@ def VerificSenha(senha):
     if not senha:
         return 'Preencha esse campo', senha
     elif len(senha) < 8:
-        return 'A senha deve ter pelo menos 6 digitos', senha
+        return 'A senha deve ter pelo menos 8 digitos', senha
     else:
         return ' ', senha
 
