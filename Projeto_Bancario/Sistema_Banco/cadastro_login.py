@@ -92,4 +92,8 @@ def VerificConfirmSenha(ConfirmSenha, senha):
     elif ConfirmSenha != senha:
         return 'As senhas não coincidem', ConfirmSenha
     else:
+        return ' ', ConfirmSenha        return 'Preencha esse campo', ConfirmSenha
+    elif ConfirmSenha != senha:
+        return 'As senhas não coincidem', ConfirmSenha
+    else:
         return ' ', ConfirmSenha
