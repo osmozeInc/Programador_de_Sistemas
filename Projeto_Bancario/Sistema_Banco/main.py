@@ -10,6 +10,34 @@ from kivy.core.window import Window
 import cadastro_login
 import banco_de_dados
 
+class Cliente():
+    def __init__(self):
+        self.nome = ''
+        self.cpf = ''
+        self.ddd = ''
+        self.numero = ''
+        self.email = '' 
+        self.data = ''
+        self.CEP = ''
+        self.rua = ''
+        self.Ncasa = ''
+        self.senha = ''
+        self.saldo = ''
+
+
+    def Salvar_cliente(self, cpf):
+        lista = banco_de_dados.Informacoes_db(cpf)
+        self.nome = lista[1]
+        self.cpf = lista[2]
+        self.ddd = lista[3]
+        self.numero = lista[4]
+        self.email = lista[5]
+        self.data = lista[6]
+        self.CEP = lista[7]
+        self.rua = lista[8]
+        self.Ncasa = lista[9]
+        self.senha = lista[10]
+
 
 class Sistema_Bancario(App):
     def build(self):
@@ -25,7 +53,10 @@ class Sistema_Bancario(App):
         return Builder.load_file('Tela.kv')
 
 
-class Screen_Login(Screen):        
+class Screen_Login(Screen, Cliente):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def informacoes_de_login(self, cpf, senha):
         Verific = [' ', '', '']   
         Verific[0], cpf_log = cadastro_login.VerificCPF(cpf)
@@ -44,12 +75,11 @@ class Screen_Login(Screen):
                 self.ids.senha_log.text = ''
             else:
                 self.ids.verificacao_log_error.text = 'Dados incorretos'
-            
 
-
-    def tela_login(self, departamento):
-        self.manager.current = departamento
-
+    def mostrar_saldo(self):
+        saldo_text = f" R$: {self.saldo}"
+        self.ids.saldo_saque.text = saldo_text
+        self.ids.saldo_deposito.text = saldo_text
 
 class Screen_Cadastro(Screen):
     def __init__(self, **kwargs):
@@ -93,15 +123,53 @@ class Screen_Menu(Screen):
         super().__init__(**kwargs)
 
 
-class Screen_Deposito(Screen):
+class Screen_Deposito(Screen, Cliente):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
 
-class Screen_Saque(Screen):
+    def Depositar(self, valor):
+        saldo = self.saldo
+        try:
+            valor = str(valor)
+        except:
+            print('Erro')
+
+        if not valor:
+            self.ids.deposito_error.text = 'Preencha o valor do deposito'
+        elif not valor.isnumeric():
+            self.ids.deposito_error.text = 'Digite um valor válido'
+        elif float(valor) <= 0:
+            self.ids.deposito_error.text = 'Valor inválido'
+        else:
+            saldo = saldo + float(valor)
+            banco_de_dados.Deposito(self.cpf, saldo)
+            self.ids.deposito_error.text = ''
+            self.manager.current = 'menu'
+
+
+class Screen_Saque(Screen, Cliente):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
+
+    def Sacar(self, valor):
+        saldo = self.saldo
+
+        if not valor:
+            self.ids.saque_error.text = 'Preencha o valor do saque'
+        elif not valor.isnumeric():
+            self.ids.saque_error.text = 'Digite um valor válido'
+        elif saldo < valor:
+            self.ids.saque_error.text = 'Saldo insuficiente'
+        elif valor <= 0:
+            self.ids.saque_error.text = 'Valor inválido'
+        else:
+                saldo = saldo - valor
+                banco_de_dados.Saque(self.cpf, saldo)
+                self.ids.saque_error.text = ''
+                self.manager.current = 'menu'
+        
 
 class Screen_Extrato(Screen):
     def __init__(self, **kwargs):
