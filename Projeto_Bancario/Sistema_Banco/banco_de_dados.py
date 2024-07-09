@@ -1,3 +1,4 @@
+
 import sqlite3
 
 conexao = sqlite3.connect('Banco.db')
@@ -40,20 +41,34 @@ def Login_db(cpf, senha):
     
 
 def Informacoes_db(cpf):
-    cursor.execute("SELECT * FROM cliente WHERE cpf =?" (cpf))
+    cursor.execute("SELECT nome, cpf, ddd, numero, email, data, CEP, rua, Ncasa, senha, saldo FROM cliente WHERE cpf =?", (cpf,))
     result = cursor.fetchall()
     if result:
-        return result[0][10]
+        return result
     else:
         return False
-    
+
 
 def Saque(cpf, saldo):
-    cursor.execute("UPDATE cliente SET saldo = ? WHERE cpf = ?" (saldo, cpf))
+    cursor.execute("UPDATE cliente SET saldo = ? WHERE cpf = ?", (saldo, cpf))
 
 
 def Deposito(cpf, saldo):
-    cursor.execute("UPDATE cliente SET saldo = ? WHERE cpf = ?" (saldo, cpf))
+    int(saldo)
+    cursor.execute("UPDATE cliente SET saldo = ? WHERE cpf = ?", (saldo, cpf))
+    print('Deposito realizado com sucesso!')
+    print('Saldo atualizado: ', saldo)
+
+
+def Atualizar_Saldo(cpf):
+    cursor.execute("SELECT saldo FROM cliente WHERE cpf =?", (cpf,))
+    result = cursor.fetchone()
+    
+    if result:
+        saldo = result[0]
+        return saldo
+    else:
+        return False
 
 
 def Fechar_db():

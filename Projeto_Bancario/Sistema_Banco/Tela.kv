@@ -1,9 +1,9 @@
 ScreenManager:
     id: screen_manager
-    Screen_Menu:
-        name: "menu"
     Screen_Login:
         name: "login"
+    Screen_Menu:
+        name: "menu"
     Screen_Cadastro:
         name: "cadastro"
     Screen_Deposito:
@@ -780,7 +780,7 @@ ScreenManager:
         #
         Label:
             id: saque_error
-            text: "hehe"
+            text: ""
             font_size: 15
             size_hint: None, None
             pos_hint: {'center_x':.5, 'center_y':.37}
@@ -805,8 +805,8 @@ ScreenManager:
                     size: 1280, 80
         #
         Label:
-            id: saldo.saque
-            text: "Saldo: R$ 0,00"
+            id: saldo_saque
+            text: "0"
             font_size: 25
             size_hint: None, None
             pos_hint: {'center_x':.5, 'center_y':.06}
@@ -878,7 +878,7 @@ ScreenManager:
         #
         Label:
             id: deposito_error
-            text: "hehe"
+            text: ""
             font_size: 15
             size_hint: None, None
             pos_hint: {'center_x':.5, 'center_y':.37}
