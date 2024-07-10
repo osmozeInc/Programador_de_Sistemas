@@ -1,4 +1,3 @@
-
 import sqlite3
 
 conexao = sqlite3.connect('Banco.db')
@@ -75,6 +74,3 @@ def Atualizar_Perfil(ddd, numero, email, cep, rua, Ncasa, cpf):
 def Fechar_db():
     conexao.commit()
     conexao.close()
-
-def data(data, cpf):
-    cursor.execute("UPDATE cliente SET data =? WHERE cpf =?", (data, cpf))
