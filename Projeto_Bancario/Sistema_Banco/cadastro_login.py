@@ -1,5 +1,7 @@
 import re
 
+
+
 def VerificNome(nome):
     try:
         nome = nome.strip().lower().title()
@@ -30,9 +32,9 @@ def VerificDDDNumero(ddd, numero):
         if not ddd or not numero:
             return 'Preencha esse campo', ddd, numero
         elif any(char in "!@#$%&*()_-+={[}]|\:;'<>?,./" for char in ddd) or any(char.isalpha() for char in ddd) or len(ddd)!= 2:
-            return "DDD invalido!", ddd, numero
+            return "DDD inválido!", ddd, numero
         elif any(char in "!@#$%&*()_-+={[}]|\:;'<>?,./" for char in numero) or any(char.isalpha() for char in numero) or len(numero)!= 9:
-            return "Numero invalido!", ddd, numero
+            return "Numero inválido!", ddd, numero
         else:
             return ' ', ddd, numero
     except AttributeError:
@@ -104,6 +106,8 @@ def VerificConfirmSenha(ConfirmSenha, senha):
         return ' ', ConfirmSenha
     
 
+
+
 def VerificDDDNumeroAlterar(ddd, numero):
     try:
         if not ddd and not numero:
@@ -113,9 +117,9 @@ def VerificDDDNumeroAlterar(ddd, numero):
         elif not numero:
             return "Preencha o Número", ddd, numero
         elif any(char in "!@#$%&*()_-+={[}]|\:;'<>?,./" for char in ddd) or any(char.isalpha() for char in ddd) or len(ddd)!= 2:
-            return "DDD invalido", ddd, numero
+            return "DDD inválido", ddd, numero
         elif any(char in "!@#$%&*()_-+={[}]|\:;'<>?,./" for char in numero) or any(char.isalpha() for char in numero) or len(numero)!= 9:
-            return "Número invalido", ddd, numero
+            return "Número inválido", ddd, numero
         else:
             return ' ', ddd, numero
     except AttributeError:
@@ -142,14 +146,15 @@ def VerificCEPAlterar(cep):
 
 
 def VerificRuaAlterar(rua):
-    if not rua:
+    if not rua or rua == 'Rua ':
+        rua = ""
         return ' ', rua
     elif any(char in "!@#$%&*()_-+={[}]|\:;'<>?,./" for char in rua) or len(rua) < 3:
         return 'Rua inválida', rua[4:]
     else:
         return ' ', rua.title()
     
-    
+   
 def VerificNcasaAlterar(Ncasa):
     if not Ncasa:
         return ' ', Ncasa
