@@ -10,34 +10,7 @@ from kivy.core.window import Window
 import cadastro_login
 import banco_de_dados
 
-class Cliente():
-    def __init__(self, nome='', cpf='', ddd='', numero='', email='', data='', CEP='', rua='', Ncasa='', senha='', saldo=0):
-        self.nome = nome
-        self.cpf = cpf
-        self.ddd = ddd
-        self.numero = numero
-        self.email = email
-        self.data = data
-        self.CEP = CEP
-        self.rua = rua
-        self.Ncasa = Ncasa
-        self.senha = senha
-        self.saldo = saldo
-
-
-class Cliente():
-    def __init__(self, nome='', cpf='', ddd='', numero='', email='', data='', CEP='', rua='', Ncasa='', senha='', saldo=0):
-        self.nome = nome
-        self.cpf = cpf
-        self.ddd = ddd
-        self.numero = numero
-        self.email = email
-        self.data = data
-        self.CEP = CEP
-        self.rua = rua
-        self.Ncasa = Ncasa
-        self.senha = senha
-        self.saldo = saldo
+cliente = {'nome': '', 'cpf': '', 'ddd': '', 'numero': '', 'email': '', 'data': '', 'CEP': '', 'rua': '', 'Ncasa': '','senha': '','saldo': 0}
 
 
 class Sistema_Bancario(App):
@@ -55,12 +28,8 @@ class Sistema_Bancario(App):
 
 
 class Screen_Login(Screen):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.cliente = Cliente()
-
     def informacoes_de_login(self, cpf, senha):
-        Verific = [' ', '', '']   
+        Verific = [' ', '', '']
         Verific[0], cpf_log = cadastro_login.VerificCPF(cpf)
         self.ids.cpf_log_error.text = Verific[0]
         Verific[1], senha_log = cadastro_login.VerificSenha(senha)
@@ -68,31 +37,36 @@ class Screen_Login(Screen):
 
         if any(verif == ' ' for verif in Verific):
             verificacao = banco_de_dados.Login_db(cpf, senha)
-            if verificacao: 
-                self.manager.current = 'menu'
+            if verificacao:
                 self.ids.verificacao_log_error.text = ''
                 self.ids.cpf_log_error.text = ''
                 self.ids.cpf_log.text = ''
                 self.ids.senha_log_error.text = ''
                 self.ids.senha_log.text = ''
                 self.Salvar_cliente(cpf)
+                self.manager.current = 'menu'
             else:
                 self.ids.verificacao_log_error.text = 'Dados incorretos'
 
     def Salvar_cliente(self, cpf):
         cliente_info = banco_de_dados.Informacoes_db(cpf)
-        self.cliente = Cliente(*cliente_info)
-
+        cliente['nome'] = cliente_info[0]
+        cliente['cpf'] = cliente_info[1]
+        cliente['ddd'] = cliente_info[2]
+        cliente['numero'] = cliente_info[3]
+        cliente['email'] = cliente_info[4]
+        cliente['data'] = cliente_info[5]
+        cliente['CEP'] = cliente_info[6]
+        cliente['rua'] = cliente_info[7]
+        cliente['Ncasa'] = cliente_info[8]
+        cliente['senha'] = cliente_info[9]
+        cliente['saldo'] = cliente_info[10]
 
 
 class Screen_Cadastro(Screen):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-    
-    def informacoes_de_cadastro(self, nome, cpf, ddd, numero, email, data, CEP, rua, Ncasa, senha, ConfirmSenha):
-        Erros = ['Preencha esse campo', 'Nome inválido', 'CPF inválido', 'DDD inválido', 'Número inválido', 'E-mail inválido', 'CEP inválido', 'Senha inválida',
+    def informacoes_de_cadastro(self, nome, cpf, ddd, numero, email, data, cep, rua, Ncasa, senha, ConfirmSenha):
+        Erros = ['Preencha esse campo', 'Nome inválido', 'CPF inválido', 'DDD inválido', 'Número inválido', 'E-mail inválido', 'CEP inválido', 'Rua inválida', 'Senha inválida',
                  'Erro', 'A senha deve ter pelo menos 8 digitos', 'As senhas não coincidem', 'Selecione uma opção']
-        
 
         Verific = ["ok", "ok", "ok", "ok", "ok", "ok", "ok", "ok", "ok", "ok"]
         Verific[0], nome_db = cadastro_login.VerificNome(nome)
@@ -105,7 +79,7 @@ class Screen_Cadastro(Screen):
         self.ids.email_cad_error.text = Verific[3]
         Verific[4], data_db = cadastro_login.VerificData(data)
         self.ids.data_cad_error.text = Verific[4]
-        Verific[5], cep_db = cadastro_login.VerificCEP(CEP)
+        Verific[5], cep_db = cadastro_login.VerificCEP(cep)
         self.ids.cep_cad_error.text = Verific[5]
         Verific[6], rua_db = cadastro_login.VerificRua(rua)
         self.ids.rua_cad_error.text = Verific[6]
@@ -116,62 +90,49 @@ class Screen_Cadastro(Screen):
         Verific[9], ConfirmSenha_db = cadastro_login.VerificConfirmSenha(ConfirmSenha, senha)
         self.ids.confirmSenha_cad_error.text = Verific[9]
 
-
         if not any(erro in Erros for erro in Verific):
-                banco_de_dados.Cadastro_db(nome_db, cpf_db, ddd_db, numero_db, email_db, data_db, cep_db, rua_db, Ncasa_db, senha_db)
-                self.ids.verificacao_cad_error.text = 'Cadastro realizado com sucesso\nVolte e realize o login'
+            banco_de_dados.Cadastro_db(nome_db, cpf_db, ddd_db, numero_db, email_db, data_db, cep_db, rua_db, Ncasa_db, senha_db)
+            self.ids.verificacao_cad_error.text = 'Cadastro realizado com sucesso'
 
 
-class Screen_Menu(Screen, Cliente):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-    
+class Screen_Menu(Screen):
     def on_enter(self, *args):
-        self.saldo = banco_de_dados.Atualizar_Saldo(self.cpf)
-        print(self.nome)
-        print(self.cpf)
-        print(self.ddd)
-        print(self.saldo)
+        self.ids.nome_menu.text = f"Nome: {cliente['nome']}"
+        self.ids.cpf_menu.text = f"CPF: {cliente['cpf'][:3] + '.' + cliente['cpf'][2:6] + '.' + cliente['cpf'][6:9] + '-' + cliente['cpf'][9:]}"
+        self.ids.numero_menu.text = f"Número: ({cliente['ddd']}) {cliente['numero'][:5]}-{cliente['numero'][5:]}"
+        self.ids.email_menu.text = f"E-mail: {cliente['email']}"
+        self.ids.data_menu.text = f"Data de nascimento: {cliente['data'][:2]}/{cliente['data'][2:5]}/{cliente['data'][5:]}"
+        self.ids.cep_menu.text = f"CEP: {cliente['CEP'][:5]}{cliente['CEP'][5:]}"
+        self.ids.rua_menu.text = f"Rua: {cliente['rua']}"
+        self.ids.casa_menu.text = f"Número da casa: {cliente['Ncasa']}"
+        self.ids.saldo_menu.text = f"Saldo: R$ {cliente['saldo']:.2f}"
 
 
-class Screen_Deposito(Screen, Cliente):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-
-    
+class Screen_Deposito(Screen):
     def on_enter(self, *args):
-        self.ids.saldo_deposito.text = f"Saldo R$: {self.saldo:.2f}"
-
+        self.ids.saldo_deposito.text = f"Saldo: R$ {cliente['saldo']:.2f}"
 
     def Depositar(self, valor):
-        saldo = self.saldo
-
+        saldo = cliente['saldo']
         if not valor:
-            self.ids.deposito_error.text = 'Preencha o valor do deposito'
+            self.ids.deposito_error.text = 'Preencha o valor do depósito'
         elif not valor.isnumeric():
             self.ids.deposito_error.text = 'Digite um valor válido'
         elif float(valor) <= 0:
             self.ids.deposito_error.text = 'Valor inválido'
         else:
-            saldo = float(saldo) + float(valor)
-            banco_de_dados.Deposito(self.cpf, saldo)
+            cliente['saldo'] += float(valor)
+            banco_de_dados.Deposito(cliente['cpf'], cliente['saldo'])
             self.ids.deposito_error.text = ''
             self.manager.current = 'menu'
-        print("deposito", saldo)
 
 
-class Screen_Saque(Screen, Cliente):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-
-
+class Screen_Saque(Screen):
     def on_enter(self, *args):
-        self.ids.saldo_saque.text = f"Saldo R$: {self.saldo:.2f}"
-
+        self.ids.saldo_saque.text = f"Saldo: R$ {cliente['saldo']:.2f}"
 
     def Sacar(self, valor):
-        saldo = self.saldo
-
+        saldo = cliente['saldo']
         if not valor:
             self.ids.saque_error.text = 'Preencha o valor do saque'
         elif not valor.isnumeric():
@@ -181,12 +142,12 @@ class Screen_Saque(Screen, Cliente):
         elif float(valor) <= 0:
             self.ids.saque_error.text = 'Valor inválido'
         else:
-                saldo = float(saldo) - float(valor)
-                banco_de_dados.Saque(self.cpf, saldo)
-                self.ids.saque_error.text = ''
-                self.manager.current = 'menu'
-        print("saque", saldo)
-        
+            cliente['saldo'] -= float(valor)
+            banco_de_dados.Saque(cliente['cpf'], cliente['saldo'])
+            self.ids.saque_error.text = ''
+            self.ids.saque.text = ''
+            self.manager.current = 'menu'
+
 
 class Screen_Extrato(Screen):
     def __init__(self, **kwargs):
@@ -194,10 +155,56 @@ class Screen_Extrato(Screen):
 
 
 class Screen_Perfil(Screen):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+    def on_enter(self, *args):
+        self.ids.nome_menu_alterar.text = f"Nome: {cliente['nome']}"
+        self.ids.cpf_menu_alterar.text = f"CPF: {cliente['cpf'][:3] + '.' + cliente['cpf'][3:6] + '.' + cliente['cpf'][6:9] + '-' + cliente['cpf'][9:]}"
+        self.ids.numero_menu_alterar.text = f"Número: ({cliente['ddd']}) {cliente['numero'][:5]}-{cliente['numero'][5:]}"
+        self.ids.email_menu_alterar.text = f"E-mail: {cliente['email']}"
+        self.ids.data_menu_alterar.text = f"Data de nascimento: {cliente['data'][:2]}/{cliente['data'][3:5]}/{cliente['data'][5:]}"
+        self.ids.cep_menu_alterar.text = f"CEP: {cliente['CEP'][:5]}{cliente['CEP'][5:]}"
+        self.ids.rua_menu_alterar.text = f"Rua: {cliente['rua']}"
+        self.ids.casa_menu_alterar.text = f"Número da casa: {cliente['Ncasa']}"
+        self.ids.saldo_menu_alterar.text = f"Saldo: R$ {cliente['saldo']:.2f}"
+
+    def Alterar_perfil(self, ddd, numero, email, cep, rua, Ncasa):
+        Erros = ['DDD inválido', 'Número inválido', 'E-mail inválido', 'CEP inválido', 'Rua inválida', 'Preencha o Número', 'Preencha o DDD', 'Erro']
+        Verific = ["ok", "ok", "ok", "ok", "ok"]
+
+        Verific[0], ddd_db, numero_db = cadastro_login.VerificDDDNumeroAlterar(ddd, numero)
+        self.ids.DDDnumero_alterar_error.text = Verific[0]
+        Verific[1], email_db = cadastro_login.VerificEmailAlterar(email)
+        self.ids.email_alterar_error.text = Verific[1]
+        Verific[2], cep_db = cadastro_login.VerificCEPAlterar(cep)
+        self.ids.cep_alterar_error.text = Verific[2]
+        Verific[3], rua_db = cadastro_login.VerificRuaAlterar(rua)
+        self.ids.rua_alterar_error.text = Verific[3]
+        Verific[4], Ncasa_db = cadastro_login.VerificNcasaAlterar(Ncasa)
+        self.ids.casa_alterar_error.text = Verific[4]
+
+        if not any(erro in Erros for erro in Verific):
+            banco_de_dados.Atualizar_Perfil(ddd_db, numero_db, email_db, cep_db, rua_db, Ncasa_db, cliente['cpf'])
+            if ddd_db: cliente['ddd'] = ddd_db
+            if numero_db: cliente['numero'] = numero_db
+            if email_db: cliente['email'] = email_db
+            if cep_db: cliente['CEP'] = cep_db
+            if rua_db: cliente['rua'] = rua_db
+            if Ncasa_db: cliente['Ncasa'] = Ncasa_db
+            self.ids.ddd_alterar.text = ''
+            self.ids.numero_alterar.text = ''
+            self.ids.email_alterar.text = ''
+            self.ids.cep_alterar.text = ''
+            self.ids.rua_alterar.text = 'Rua: '
+            self.ids.casa_alterar.text = ''
+            self.ids.DDDnumero_alterar_error.text = ''
+            self.ids.email_alterar_error.text = ''
+            self.ids.cep_alterar_error.text = ''
+            self.ids.rua_alterar_error.text = ''
+            self.ids.casa_alterar_error.text = ''
+            self.manager.current = 'menu'
 
 
+Sistema_Bancario().run()
+banco_de_dados.Fechar_db()
 cliente = Cliente()
 Sistema_Bancario().run()
 banco_de_dados.Fechar_db()
