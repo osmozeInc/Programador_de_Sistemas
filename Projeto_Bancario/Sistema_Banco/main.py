@@ -103,7 +103,7 @@ class Screen_Menu(Screen):
         self.ids.email_menu.text = f"E-mail: {cliente['email']}"
         self.ids.data_menu.text = f"Data de nascimento: {cliente['data'][:2]}/{cliente['data'][2:4]}/{cliente['data'][4:]}"
         self.ids.cep_menu.text = f"CEP: {cliente['CEP'][:5]}{cliente['CEP'][5:]}"
-        self.ids.rua_menu.text = f"Rua: {cliente['rua']}"
+        self.ids.rua_menu.text = f"{cliente['rua']}"
         self.ids.casa_menu.text = f"Número da casa: {cliente['Ncasa']}"
         self.ids.saldo_menu.text = f"Saldo: R$ {cliente['saldo']:.2f}"
 
@@ -123,6 +123,7 @@ class Screen_Deposito(Screen):
         else:
             cliente['saldo'] += float(valor)
             banco_de_dados.Deposito(cliente['cpf'], cliente['saldo'])
+            banco_de_dados.Adicionar_transacao(cliente['cpf'], 'Depósito', valor)
             self.ids.deposito_error.text = ''
             self.manager.current = 'menu'
 
@@ -144,6 +145,7 @@ class Screen_Saque(Screen):
         else:
             cliente['saldo'] -= float(valor)
             banco_de_dados.Saque(cliente['cpf'], cliente['saldo'])
+            banco_de_dados.Adicionar_transacao(cliente['cpf'], 'Saque', valor)
             self.ids.saque_error.text = ''
             self.ids.saque.text = ''
             self.manager.current = 'menu'
