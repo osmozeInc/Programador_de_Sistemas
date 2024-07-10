@@ -98,10 +98,10 @@ class Screen_Cadastro(Screen):
 class Screen_Menu(Screen):
     def on_enter(self, *args):
         self.ids.nome_menu.text = f"Nome: {cliente['nome']}"
-        self.ids.cpf_menu.text = f"CPF: {cliente['cpf'][:3] + '.' + cliente['cpf'][2:6] + '.' + cliente['cpf'][6:9] + '-' + cliente['cpf'][9:]}"
+        self.ids.cpf_menu.text = f"CPF: {cliente['cpf'][:3] + '.' + cliente['cpf'][3:6] + '.' + cliente['cpf'][6:9] + '-' + cliente['cpf'][9:]}"
         self.ids.numero_menu.text = f"Número: ({cliente['ddd']}) {cliente['numero'][:5]}-{cliente['numero'][5:]}"
         self.ids.email_menu.text = f"E-mail: {cliente['email']}"
-        self.ids.data_menu.text = f"Data de nascimento: {cliente['data'][:2]}/{cliente['data'][2:5]}/{cliente['data'][5:]}"
+        self.ids.data_menu.text = f"Data de nascimento: {cliente['data'][:2]}/{cliente['data'][2:4]}/{cliente['data'][4:]}"
         self.ids.cep_menu.text = f"CEP: {cliente['CEP'][:5]}{cliente['CEP'][5:]}"
         self.ids.rua_menu.text = f"Rua: {cliente['rua']}"
         self.ids.casa_menu.text = f"Número da casa: {cliente['Ncasa']}"
@@ -160,9 +160,9 @@ class Screen_Perfil(Screen):
         self.ids.cpf_menu_alterar.text = f"CPF: {cliente['cpf'][:3] + '.' + cliente['cpf'][3:6] + '.' + cliente['cpf'][6:9] + '-' + cliente['cpf'][9:]}"
         self.ids.numero_menu_alterar.text = f"Número: ({cliente['ddd']}) {cliente['numero'][:5]}-{cliente['numero'][5:]}"
         self.ids.email_menu_alterar.text = f"E-mail: {cliente['email']}"
-        self.ids.data_menu_alterar.text = f"Data de nascimento: {cliente['data'][:2]}/{cliente['data'][3:5]}/{cliente['data'][5:]}"
+        self.ids.data_menu_alterar.text = f"Data de nascimento: {cliente['data'][:2]}/{cliente['data'][2:4]}/{cliente['data'][4:]}"
         self.ids.cep_menu_alterar.text = f"CEP: {cliente['CEP'][:5]}{cliente['CEP'][5:]}"
-        self.ids.rua_menu_alterar.text = f"Rua: {cliente['rua']}"
+        self.ids.rua_menu_alterar.text = f"{cliente['rua']}"
         self.ids.casa_menu_alterar.text = f"Número da casa: {cliente['Ncasa']}"
         self.ids.saldo_menu_alterar.text = f"Saldo: R$ {cliente['saldo']:.2f}"
 
@@ -193,7 +193,7 @@ class Screen_Perfil(Screen):
             self.ids.numero_alterar.text = ''
             self.ids.email_alterar.text = ''
             self.ids.cep_alterar.text = ''
-            self.ids.rua_alterar.text = 'Rua: '
+            self.ids.rua_alterar.text = 'Rua '
             self.ids.casa_alterar.text = ''
             self.ids.DDDnumero_alterar_error.text = ''
             self.ids.email_alterar_error.text = ''
@@ -203,8 +203,5 @@ class Screen_Perfil(Screen):
             self.manager.current = 'menu'
 
 
-Sistema_Bancario().run()
-banco_de_dados.Fechar_db()
-cliente = Cliente()
 Sistema_Bancario().run()
 banco_de_dados.Fechar_db()
