@@ -12,6 +12,7 @@ def VerificNome(nome):
     except AttributeError:
         return 'Erro', nome
 
+
 def VerificCPF(cpf):
     try:
         if not cpf:
@@ -22,6 +23,7 @@ def VerificCPF(cpf):
             return ' ', cpf
     except AttributeError:
         return 'Erro', cpf
+
 
 def VerificDDDNumero(ddd, numero):
     try:
@@ -36,15 +38,17 @@ def VerificDDDNumero(ddd, numero):
     except AttributeError:
         return 'Erro', ddd, numero
 
+
 def VerificEmail(email):
     email_padrao = r'^[\w\.-]+@[\w\.-]+\.\w+$'
     if not email:
         return 'Preencha esse campo', email
     elif not re.match(email_padrao, email):
-        return 'Email inválido', email
+        return 'E-mail inválido', email
     else:
         return ' ', email
-    
+
+
 def VerificData(data):
         data = data.strip().lower().title()
         if not data:
@@ -52,7 +56,8 @@ def VerificData(data):
         elif len(data) != 10 or data.isalpha() or not data[2] == '/' or not data[5] == '/':
             return 'Data inválida', data
         else:
-            return ' ', data[0:1] + data[3:4] + data[6:]
+            return ' ', data[:2] + data[3:5] + data[6:]
+
 
 def VerificCEP(CEP):
     if not CEP:
@@ -61,22 +66,25 @@ def VerificCEP(CEP):
         return 'CEP inválido', CEP
     else:
         return ' ', CEP
-    
+
+
 def VerificRua(rua):
     if not rua:
         return 'Preencha esse campo', rua
     elif any(char in "!@#$%&*()_-+={[}]|\:;'<>?,./" for char in rua) or len(rua) < 3:
         return 'Rua inválida', rua[4:]
     else:
-        return ' ', rua
+        return ' ', rua.title()
+
 
 def VerificNcasa(Ncasa):
     if not Ncasa:
         return 'Preencha esse campo', Ncasa
     elif not Ncasa.isnumeric():
-        return 'Numero inválido', Ncasa
+        return 'Número inválido', Ncasa
     else:
         return ' ', Ncasa
+
 
 def VerificSenha(senha):
     if not senha:
@@ -86,6 +94,7 @@ def VerificSenha(senha):
     else:
         return ' ', senha
 
+
 def VerificConfirmSenha(ConfirmSenha, senha):
     if not ConfirmSenha:
         return 'Preencha esse campo', ConfirmSenha
@@ -93,3 +102,58 @@ def VerificConfirmSenha(ConfirmSenha, senha):
         return 'As senhas não coincidem', ConfirmSenha
     else:
         return ' ', ConfirmSenha
+    
+
+def VerificDDDNumeroAlterar(ddd, numero):
+    try:
+        if not ddd and not numero:
+            return ' ', ddd, numero
+        elif not ddd and numero:
+            return "Preencha o DDD", ddd, numero
+        elif not numero:
+            return "Preencha o Número", ddd, numero
+        elif any(char in "!@#$%&*()_-+={[}]|\:;'<>?,./" for char in ddd) or any(char.isalpha() for char in ddd) or len(ddd)!= 2:
+            return "DDD invalido", ddd, numero
+        elif any(char in "!@#$%&*()_-+={[}]|\:;'<>?,./" for char in numero) or any(char.isalpha() for char in numero) or len(numero)!= 9:
+            return "Número invalido", ddd, numero
+        else:
+            return ' ', ddd, numero
+    except AttributeError:
+        return 'Erro', ddd, numero
+
+
+def VerificEmailAlterar(email):
+    email_padrao = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+    if not email:
+        return ' ', email
+    elif not re.match(email_padrao, email):
+        return 'E-mail inválido', email
+    else:
+        return ' ', email
+
+
+def VerificCEPAlterar(cep):
+    if not cep:
+        return ' ', cep
+    elif len(cep) != 8 or not cep.isnumeric():
+        return 'CEP inválido', cep
+    else:
+        return ' ', cep
+
+
+def VerificRuaAlterar(rua):
+    if not rua:
+        return ' ', rua
+    elif any(char in "!@#$%&*()_-+={[}]|\:;'<>?,./" for char in rua) or len(rua) < 3:
+        return 'Rua inválida', rua[4:]
+    else:
+        return ' ', rua.title()
+    
+    
+def VerificNcasaAlterar(Ncasa):
+    if not Ncasa:
+        return ' ', Ncasa
+    elif not Ncasa.isnumeric():
+        return 'Número inválido', Ncasa
+    else:
+        return ' ', Ncasa
