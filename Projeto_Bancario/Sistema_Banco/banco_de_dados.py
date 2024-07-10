@@ -44,7 +44,7 @@ def Informacoes_db(cpf):
     cursor.execute("SELECT nome, cpf, ddd, numero, email, data, CEP, rua, Ncasa, senha, saldo FROM cliente WHERE cpf =?", (cpf,))
     result = cursor.fetchall()
     if result:
-        return result
+        return result[0]
     else:
         return False
 
@@ -54,10 +54,7 @@ def Saque(cpf, saldo):
 
 
 def Deposito(cpf, saldo):
-    int(saldo)
     cursor.execute("UPDATE cliente SET saldo = ? WHERE cpf = ?", (saldo, cpf))
-    print('Deposito realizado com sucesso!')
-    print('Saldo atualizado: ', saldo)
 
 
 def Atualizar_Saldo(cpf):
@@ -66,10 +63,18 @@ def Atualizar_Saldo(cpf):
     
     if result:
         saldo = result[0]
+        print('Saldo atualizado: ', saldo)
         return saldo
     else:
         return False
 
 
+def Atualizar_Perfil(ddd, numero, email, cep, rua, Ncasa, cpf):
+    cursor.execute("UPDATE cliente SET ddd =?, numero =?, email =?, CEP =?, rua =?, Ncasa =? WHERE cpf =?", (ddd, numero, email, cep, rua, Ncasa, cpf))
+
 def Fechar_db():
+    conexao.commit()
     conexao.close()
+
+def data(data, cpf):
+    cursor.execute("UPDATE cliente SET data =? WHERE cpf =?", (data, cpf))
