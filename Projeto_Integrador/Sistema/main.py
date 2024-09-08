@@ -7,6 +7,7 @@ from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.spinner import Spinner, SpinnerOption
 from kivy.core.window import Window
+from kivy.lang import Builder
 import cadastro_login
 import banco_de_dados
 
@@ -209,6 +210,6 @@ class Screen_Perfil(Screen):
             self.ids.casa_alterar_error.text = ''
             self.manager.current = 'menu'
 
-
+Builder.load_file('classes.kv')
 Sistema_Bancario().run()
 banco_de_dados.Fechar_db()

@@ -14,24 +14,14 @@ ScreenManager:
         name: "extrato"
     Screen_Perfil:
         name: "perfil"
+
 #
-<SpinnerOption>:
-    size_hint_y: None
-    text_size: self.size
-    valign: 'center'
-    halign: 'center'
-    color: 0, 0, 0, 1
-    background_normal: ''
+# TELAS
 #
 <Screen_Login>:
     name: "login"
     FloatLayout:
-        canvas.before:
-            Color:
-                rgba: 0.8, 0.8, 0.8, 1
-            Rectangle:
-                size: self.size
-                pos: self.pos
+        Fundo:
         #
         Label:
             text: "FAÇA SEU LOGIN"
@@ -41,15 +31,11 @@ ScreenManager:
             bold: True
             color: 0, 0, 0, 1
         #
-        Label:
+        LabelVerificacao:
             id: verificacao_log_error
-            text: ""
             font_size: 18
             halign: 'center'
-            size_hint: None, None
-            size: self.texture_size
             pos_hint: {'center_x':.5, 'center_y':.85}
-            color: 0.5, 0, 0, 1
         #
         Label:
             text: "Digite seu CPF"
@@ -64,12 +50,9 @@ ScreenManager:
             size: 200, 40
             pos_hint: {'center_x': 0.5, 'center_y': 0.63}
         #
-        Label:
+        LabelVerificacao:
             id: cpf_log_error
-            text: ""
-            font_size: 15
             pos_hint: {'center_x':.48, 'center_y':.58}
-            color: 0.5, 0, 0, 1
         #
         Label:
             text: "Digite sua senha"
@@ -83,12 +66,9 @@ ScreenManager:
             size: 200, 40
             pos_hint: {'center_x': 0.5, 'center_y': 0.43}
         #
-        Label:
+        LabelVerificacao:
             id: senha_log_error
-            text: ""
-            font_size: 15
             pos_hint: {'center_x':.48, 'center_y':.38}
-            color: 0.5, 0, 0, 1
         #
         Button:
             text: "Entrar"
@@ -114,11 +94,7 @@ ScreenManager:
 <Screen_Cadastro>:
     name: "cadastro"
     FloatLayout:
-        canvas.before:
-            Color:
-                rgba: 0.8, 0.8, 0.8, 1
-            Rectangle:
-                size: self.size
+        Fundo:
         #
         Label:
             text: "CADASTRO"
@@ -145,15 +121,11 @@ ScreenManager:
             pos_hint: {'x':.15, 'y':.72 + 0.01}
             color: 0, 0, 0, 1
         #
-        Label:
+        LabelVerificacao:
             id: nome_cad_error
-            text: ""
-            font_size: 15
-            halign: 'left'
             size_hint: None, None
             size: self.texture_size
             pos_hint: {'x':.15, 'y':.69 + 0.01}
-            color: 0.5, 0, 0, 1
         #
         Label:
             text: "CPF:"
@@ -173,15 +145,11 @@ ScreenManager:
             pos_hint: {'x':.15, 'y':.57 + 0.01}
             color: 0, 0, 0, 1
         #
-        Label:
+        LabelVerificacao:
             id: cpf_cad_error
-            text: ""
-            font_size: 15
-            halign: 'left'
             size_hint: None, None
             size: self.texture_size
             pos_hint: {'x':.15, 'y':.54 + 0.01}
-            color: 0.5, 0, 0, 1
         #
         Label:
             text: "DDD/Celular:"
@@ -221,15 +189,11 @@ ScreenManager:
                 text: ""
                 font_color: 0.6, 0.6, 0.6, 1
         #
-        Label:
+        LabelVerificacao:
             id: DDDnumero_cad_error
-            text: ""
-            font_size: 15
-            halign: 'left'
             size_hint: None, None
             size: self.texture_size
             pos_hint: {'x':.15, 'y':.39 + 0.01}
-            color: 0.5, 0, 0, 1
         #
         Label:
             text: "E-mail:"
@@ -248,15 +212,11 @@ ScreenManager:
             pos_hint: {'x':.15, 'y':.27 + 0.01}
             color: 0, 0, 0, 1
         #
-        Label:
+        LabelVerificacao:
             id: email_cad_error
-            text: ""
-            font_size: 15
-            halign: 'left'
             size_hint: None, None
             size: self.texture_size
             pos_hint: {'x':.15, 'y':.24 + 0.01}
-            color: 0.5, 0, 0, 1
         #
         Label:
             text: "Data de Nascimento:"
@@ -276,15 +236,11 @@ ScreenManager:
             pos_hint: {'x':.15, 'y':.12 + 0.01}
             color: 0, 0, 0, 1
         #
-        Label:
+        LabelVerificacao:
             id: data_cad_error
-            text: ""
-            font_size: 15
-            halign: 'left'
             size_hint: None, None
             size: self.texture_size
             pos_hint: {'x':.15, 'y':.09 + 0.01}
-            color: 0.5, 0, 0, 1
         #
         Label:
             text: "CEP:"
@@ -303,15 +259,11 @@ ScreenManager:
             pos_hint: {'x':.55, 'y':.73}
             color: 0, 0, 0, 1
         #
-        Label:
+        LabelVerificacao:
             id: cep_cad_error
-            text: ""
-            font_size: 15
-            halign: 'left'
             size_hint: None, None
             size: self.texture_size
             pos_hint: {'x':.55, 'y':.70}
-            color: 0.5, 0, 0, 1
         #
         Label:
             text: "Rua:"
@@ -331,15 +283,11 @@ ScreenManager:
             pos_hint: {'x':.55, 'y':.58}
             color: 0, 0, 0, 1
         #
-        Label:
+        LabelVerificacao:
             id: rua_cad_error
-            text: ""
-            font_size: 15
-            halign: 'left'
             size_hint: None, None
             size: self.texture_size
             pos_hint: {'x':.55, 'y':.55}
-            color: 0.5, 0, 0, 1
         #
         Label:
             text: "Numero da casa:"
@@ -358,15 +306,11 @@ ScreenManager:
             pos_hint: {'x':.55, 'y':.43}
             color: 0, 0, 0, 1
         #
-        Label:
+        LabelVerificacao:
             id: Ncasa_cad_error
-            text: ""
-            font_size: 15
-            halign: 'left'
             size_hint: None, None
             size: self.texture_size
             pos_hint: {'x':.55, 'y':.40}
-            color: 0.5, 0, 0, 1
         #
         Label:
             text: "Senha:"
@@ -385,15 +329,11 @@ ScreenManager:
             pos_hint: {'x':.55, 'y':.28}
             color: 0, 0, 0, 1
         #
-        Label:
+        LabelVerificacao:
             id: senha_cad_error
-            text: ""
-            font_size: 15
-            halign: 'left'
             size_hint: None, None
             size: self.texture_size
             pos_hint: {'x':.55, 'y':.25}
-            color: 0.5, 0, 0, 1
         #
         Label:
             text: "Confirme a senha:"
@@ -412,19 +352,14 @@ ScreenManager:
             pos_hint: {'x':.55, 'y':.13}
             color: 0, 0, 0, 1
         #
-        Label:
+        LabelVerificacao:
             id: confirmSenha_cad_error
-            text: ""
-            font_size: 15
-            halign: 'left'
             size_hint: None, None
             size: self.texture_size
             pos_hint: {'x':.55, 'y':.10}
-            color: 0.5, 0, 0, 1
         #
-        Label:
+        LabelVerificacao:
             id: verificacao_cad_error
-            text: ""
             bold: True
             valign: 'center'
             font_size: 22
@@ -458,46 +393,13 @@ ScreenManager:
 <Screen_Menu>:
     name: "menu"
     FloatLayout:
-        canvas.before:
-            Color:
-                rgba: 0.8, 0.8, 0.8, 1
-            Rectangle:
-                size: self.size
-                pos: self.pos
+        Fundo:
         #
-        Widget:
-            canvas.before:
-                Color:
-                    rgba: 0.4, 0.9, 1, 1
-                Rectangle:
-                    pos: 0, self.height - 160
-                    size: 1280, 160
+        BannerLogo:
         #
-        Widget:
-            canvas.before:
-                Color:
-                    rgba: 0.3, 0.3, 0.3, 1
-                Line:
-                    points: [0, self.height - 160, 1280, self.height - 160]
-                    width: 1.7
+        PyBank:
         #
-        Widget:
-            canvas.before:
-                Color:
-                    rgba: 0.9, 0.9, 0.9, 1
-                Rectangle:
-                    pos: 0, 0
-                    size: 450, 720-161.3
-        #
-        Label:
-            text: "Py Bank"
-            font_size: 50
-            pos_hint: {'center_x':.5, 'center_y':.89}
-            size_hint: None, None
-            bold: True
-            color: 1, 1, 1, 1
-            outline_width: 1
-            outline_color: 0.5, 0.5, 0.5, 1
+        Perfil:
         #
         BoxLayout:
             orientation: "vertical"
@@ -669,48 +571,15 @@ ScreenManager:
 <Screen_Perfil>:
     name: "perfil"
     FloatLayout:
-        canvas.before:
-            Color:
-                rgba: 0.8, 0.8, 0.8, 1
-            Rectangle:
-                size: self.size
-                pos: self.pos
+        Fundo:
         #
         # banner
         #
-        Widget:
-            canvas.before:
-                Color:
-                    rgba: 0.4, 0.9, 1, 1
-                Rectangle:
-                    pos: 0, self.height - 160
-                    size: 1280, 160
+        BannerLogo:
         #
-        Widget:
-            canvas.before:
-                Color:
-                    rgba: 0.3, 0.3, 0.3, 1
-                Line:
-                    points: [0, self.height - 160, 1280, self.height - 160]
-                    width: 1.7
+        PyBank:
         #
-        Widget:
-            canvas.before:
-                Color:
-                    rgba: 0.9, 0.9, 0.9, 1
-                Rectangle:
-                    pos: 0, 0
-                    size: 450, 720-161.3
-        #
-        Label:
-            text: "Py Bank"
-            font_size: 50
-            pos_hint: {'center_x':.5, 'center_y':.89}
-            size_hint: None, None
-            bold: True
-            color: 1, 1, 1, 1
-            outline_width: 1
-            outline_color: 0.5, 0.5, 0.5, 1
+        Perfil:
         #
         # Perfil atual
         #
@@ -864,15 +733,11 @@ ScreenManager:
                 text: ""
                 font_color: 0.6, 0.6, 0.6, 1
         #
-        Label:
+        LabelVerificacao:
             id: DDDnumero_alterar_error
-            text: ""
-            font_size: 15
-            halign: 'left'
             size_hint: None, None
             size: self.texture_size
             pos_hint: {'x':.4, 'y':.32}
-            color: 0.5, 0, 0, 1
         #
         Label:
             text: "E-mail:"
@@ -891,15 +756,11 @@ ScreenManager:
             pos_hint: {'x':.4, 'y':.56}
             color: 0, 0, 0, 1
         #
-        Label:
+        LabelVerificacao:
             id: email_alterar_error
-            text: ""
-            font_size: 15
-            halign: 'left'
             size_hint: None, None
             size: self.texture_size
             pos_hint: {'x':.4, 'y':.52}
-            color: 0.5, 0, 0, 1
         #
         Label:
             text: "CEP:"
@@ -918,15 +779,11 @@ ScreenManager:
             pos_hint: {'x':.68, 'y':.56}
             color: 0, 0, 0, 1
         #
-        Label:
+        LabelVerificacao:
             id: cep_alterar_error
-            text: ""
-            font_size: 15
-            halign: 'left'
             size_hint: None, None
             size: self.texture_size
             pos_hint: {'x':.68, 'y':.52}
-            color: 0.5, 0, 0, 1
         #
         Label:
             text: "Rua:"
@@ -946,15 +803,11 @@ ScreenManager:
             pos_hint: {'x':.68, 'y':.36}
             color: 0, 0, 0, 1
         #
-        Label:
+        LabelVerificacao:
             id: rua_alterar_error
-            text: ""
-            font_size: 15
-            halign: 'left'
             size_hint: None, None
             size: self.texture_size
             pos_hint: {'x':.68, 'y':.32}
-            color: 0.5, 0, 0, 1
         #
         Label:
             text: "Numero da casa:"
@@ -973,51 +826,20 @@ ScreenManager:
             pos_hint: {'x':.68, 'y':.16}
             color: 0, 0, 0, 1
         #
-        Label:
+        LabelVerificacao:
             id: casa_alterar_error
-            text: ""
-            font_size: 15
-            halign: 'left'
             size_hint: None, None
             size: self.texture_size
             pos_hint: {'x':.68, 'y':.12}
-            color: 0.5, 0, 0, 1
 #
 <Screen_Extrato>:
     name: "extrato"
     FloatLayout:
-        canvas.before:
-            Color:
-                rgba: 0.8, 0.8, 0.8, 1
-            Rectangle:
-                size: self.size
-                pos: self.pos
+        Fundo:
         #
-        Widget:
-            canvas.before:
-                Color:
-                    rgba: 0.4, 0.9, 1, 1
-                Rectangle:
-                    pos: 0, self.height - 160
-                    size: 1280, 160
+        BannerLogo:
         #
-        Widget:
-            canvas.before:
-                Color:
-                    rgba: 0.3, 0.3, 0.3, 1
-                Line:
-                    points: [0, self.height - 160, 1280, self.height - 160]
-                    width: 1.7
-        #
-        Label:
-            text: "Py Bank"
-            font_size: 50
-            pos_hint: {'center_x':.5, 'center_y':.89}
-            size_hint: None, None
-            bold: True
-            color: 1, 1, 1, 1
-            outline_width: 1
-            outline_color: 0.5, 0.5, 0.5, 1
+        PyBank:
         #
         Label:
             text: "Extrato"
@@ -1054,38 +876,11 @@ ScreenManager:
 <Screen_Saque>:
     name: "saque"
     FloatLayout:
-        canvas.before:
-            Color:
-                rgba: 0.8, 0.8, 0.8, 1
-            Rectangle:
-                size: self.size
-                pos: self.pos
+        Fundo:
         #
-        Widget:
-            canvas.before:
-                Color:
-                    rgba: 0.4, 0.9, 1, 1
-                Rectangle:
-                    pos: 0, self.height - 160
-                    size: 1280, 160
+        BannerLogo:
         #
-        Widget:
-            canvas.before:
-                Color:
-                    rgba: 0.3, 0.3, 0.3, 1
-                Line:
-                    points: [0, self.height - 160, 1280, self.height - 160]
-                    width: 1.7
-        #
-        Label:
-            text: "Py Bank"
-            font_size: 50
-            pos_hint: {'center_x':.5, 'center_y':.89}
-            size_hint: None, None
-            bold: True
-            color: 1, 1, 1, 1
-            outline_width: 1
-            outline_color: 0.5, 0.5, 0.5, 1
+        PyBank:
         #
         # area de saque
         #
@@ -1112,11 +907,8 @@ ScreenManager:
         #
         Label:
             id: saque_error
-            text: ""
-            font_size: 15
             size_hint: None, None
             pos_hint: {'center_x':.5, 'center_y':.37}
-            color: 1, 0, 0, 1
         #
         Button:
             text: "Sacar"
@@ -1162,38 +954,11 @@ ScreenManager:
 <Screen_Deposito>:
     name: "deposito"
     FloatLayout:
-        canvas.before:
-            Color:
-                rgba: 0.8, 0.8, 0.8, 1
-            Rectangle:
-                size: self.size
-                pos: self.pos
+        Fundo:
         #
-        Widget:
-            canvas.before:
-                Color:
-                    rgba: 0.4, 0.9, 1, 1
-                Rectangle:
-                    pos: 0, self.height - 160
-                    size: 1280, 160
+        BannerLogo:
         #
-        Widget:
-            canvas.before:
-                Color:
-                    rgba: 0.3, 0.3, 0.3, 1
-                Line:
-                    points: [0, self.height - 160, 1280, self.height - 160]
-                    width: 1.7
-        #
-        Label:
-            text: "Py Bank"
-            font_size: 50
-            pos_hint: {'center_x':.5, 'center_y':.89}
-            size_hint: None, None
-            bold: True
-            color: 1, 1, 1, 1
-            outline_width: 1
-            outline_color: 0.5, 0.5, 0.5, 1
+        PyBank:
         #
         # area de deposito
         #
@@ -1220,11 +985,8 @@ ScreenManager:
         #
         Label:
             id: deposito_error
-            text: ""
-            font_size: 15
             size_hint: None, None
             pos_hint: {'center_x':.5, 'center_y':.37}
-            color: 1, 0, 0, 1
         #
         Button:
             text: "Depositar"
