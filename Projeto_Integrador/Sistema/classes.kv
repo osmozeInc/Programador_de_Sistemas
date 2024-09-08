@@ -1,14 +1,6 @@
 #
-# label de verificação
-# \/ \/ \/ \/ \/ \/ \/
-<LabelVerificacao@Label>:
-    text: ""
-    font_size: 15
-    halign: 'left'
-    color: 0.5, 0, 0, 1
-#
 # Fundo da tela
-# \/ \/ \/ \/ \/
+#
 <Fundo@Widget>:
     canvas.before:
         Color:
@@ -18,7 +10,7 @@
             pos: self.pos
 #
 # Tela da logo
-# \/ \/ \/ \/ \/
+#
 <BannerLogo@Widget>:
     canvas.before:
         Color:
@@ -33,7 +25,7 @@
             width: 1.7
 #
 # Fundo do perfil
-# \/ \/ \/
+#
 <Perfil@Widget>:
     canvas.before:
         Color:
@@ -43,7 +35,7 @@
             size: 450, 720 - 161.3
 #
 # logo
-# \/ \/
+#
 <PyBank@Label>:
     text: "Py Bank"
     font_size: 50
@@ -54,3 +46,60 @@
     outline_width: 1
     outline_color: 0.5, 0.5, 0.5, 1
 #
+# exibir perfil
+#
+<PerfilUsuario@Label>:
+    text: "Erro"
+    font_size: 20
+    halign: 'left'
+    size_hint: None, None
+    size: self.texture_size
+    color: 0, 0, 0, 1
+#
+#
+#
+#   LABELS
+#
+# label de verificação
+#
+<LabelVerificacao@Label>:
+    text: ""
+    font_size: 15
+    halign: 'left'
+    color: 0.5, 0, 0, 1
+#
+# label do cadastro
+#
+<LabelCadastro@Label>:
+    font_size: 20
+    halign: 'left'
+    size_hint: None, None
+    size: self.texture_size
+    color: 0, 0, 0, 1
+#
+# label do login
+#
+
+#
+#
+#   BUTTONS
+#
+# botão de voltar ao menu
+#
+<VoltarMenu@Button>:
+    text: "Voltar ao menu"
+    size_hint: None, None
+    size: 160, 50
+    font_size: 18
+    background_color: 0.5, 0.5, 0.5, 1
+#
+#
+#    TEXTINPUTS
+#
+# textinput do cadastro
+#
+<InputCadastro@TextInput>:
+    size_hint: None, None
+    size: 250, 40
+    halign: 'left'
+    color: 0, 0, 0, 1
