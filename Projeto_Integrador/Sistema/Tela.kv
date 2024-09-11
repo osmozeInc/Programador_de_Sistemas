@@ -322,32 +322,20 @@ ScreenManager:
             pos_hint: {'center_x':.678, 'center_y':.385}
             spacing: 60
             #
-            Button:
+            Operacoes:
                 text: "Realizar Saque"
-                size_hint: None, None
-                size: 680, 120
-                font_size: 18
-                background_color: 0.1, 1, 0.1, 1
-                on_release: root.manager.transition.direction = 'right'
-                on_press: app.root.current ='saque'
+                on_press: root.manager.transition.direction = 'left'
+                on_release: app.root.current ='saque'
             #
-            Button:
+            Operacoes:
                 text: "Realizar Depósito"
-                size_hint: None, None
-                size: 680, 120
-                font_size: 18
-                background_color: 0.1, 1, 0.1, 1
-                on_release: root.manager.transition.direction = 'right'
-                on_press: app.root.current ='deposito'
+                on_press: root.manager.transition.direction = 'left'
+                on_release: app.root.current ='deposito'
             #
-            Button:
+            Operacoes:
                 text: "Visualizar Extrato"
-                size_hint: None, None
-                size: 680, 120
-                font_size: 18
-                background_color: 0.1, 1, 0.1, 1
-                on_release: root.manager.transition.direction = 'right'
-                on_press: app.root.current ='extrato'
+                on_press: root.manager.transition.direction = 'left'
+                on_release: app.root.current ='extrato'
         #
         Label:
             text: "Perfil"
@@ -407,8 +395,8 @@ ScreenManager:
                 size: 160, 50
                 font_size: 18
                 background_color: 0.4, 0.4, 0.4, 1
-                on_release: root.manager.transition.direction = 'left'
-                on_press: app.root.current = 'perfil'
+                on_press: root.manager.transition.direction = 'left'
+                on_release: app.root.current = 'perfil'
             #
             Button:
                 text: "Sair"
@@ -416,8 +404,8 @@ ScreenManager:
                 size: 160, 50
                 font_size: 18
                 background_color: 0.9, 0.2, 0.2, 1
-                on_press: app.root.current = 'login'
-                on_release: root.manager.transition.direction = 'left'
+                on_press: root.manager.transition.direction = 'left'
+                on_release: app.root.current = 'login'
         #
         Button:
             text: "Fechar Aplicativo"
@@ -680,8 +668,8 @@ ScreenManager:
         #
         VoltarMenu:
             pos_hint: {'center_x': 0.9, 'center_y': 0.85}
-            on_press: root.manager.transition.direction = 'left'
-            on_press: root.manager.current = 'menu'
+            on_press: root.manager.transition.direction = 'right'
+            on_release: root.manager.current = "menu"
 
 #
 <Screen_Saque>:
@@ -716,18 +704,13 @@ ScreenManager:
             background_color: 0.9, 0.9, 0.9, 1
             color: 0, 0, 0, 1
         #
-        Label:
+        LabelVerificacao:
             id: saque_error
             size_hint: None, None
             pos_hint: {'center_x':.5, 'center_y':.37}
         #
-        Button:
+        SaqueDeposito:
             text: "Sacar"
-            size_hint: None, None
-            size: 160, 50
-            font_size: 18
-            pos_hint: {'center_x':.5, 'center_y':.3}
-            background_color: 0.5, 0.5, 0.5, 1
             on_release: root.manager.transition.direction = 'left'
             on_press: root.Sacar(saque.text)
         #
@@ -741,8 +724,8 @@ ScreenManager:
         #
         VoltarMenu:
             pos_hint: {'center_x':.5, 'center_y':.2}
-            on_release: root.manager.transition.direction = 'left'
-            on_press: root.manager.current = "menu"
+            on_press: root.manager.transition.direction = 'right'
+            on_release: root.manager.current = "menu"
         #
         Label:
             id: saldo_saque
@@ -789,18 +772,13 @@ ScreenManager:
             background_color: 0.9, 0.9, 0.9, 1
             color: 0, 0, 0, 1
         #
-        Label:
+        LabelVerificacao:
             id: deposito_error
             size_hint: None, None
             pos_hint: {'center_x':.5, 'center_y':.37}
         #
-        Button:
+        SaqueDeposito:
             text: "Depositar"
-            size_hint: None, None
-            size: 160, 50
-            font_size: 18
-            pos_hint: {'center_x':.5, 'center_y':.3}
-            background_color: 0.5, 0.5, 0.5, 1
             on_release: root.manager.transition.direction = 'left'
             on_press: root.Depositar(deposito.text)
         #
@@ -814,8 +792,8 @@ ScreenManager:
         #
         VoltarMenu:
             pos_hint: {'center_x':.5, 'center_y':.2}
-            on_release: root.manager.transition.direction = 'right'
-            on_press: root.manager.current = "menu"
+            on_press: root.manager.transition.direction = 'right'
+            on_release: root.manager.current = "menu"
         #
         Label:
             id: saldo_deposito
